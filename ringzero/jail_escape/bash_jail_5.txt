@@ -1,0 +1,13 @@
+# TODO : Fill me up
+
+From memory : Used bash expansion to go over the restricted characters constraint
+
+Solution : eval eval {o..u}y{q..u}hon\\ -m\\ SimpleHTTPSe{q..u}ve{q..u}\\;
+
+Which will run multiple commands, most of them will fail but at some point we get an httpserver and we can query it using level1 shell.
+
+We could have also forwarded port using SSH and query the httpserver locally
+
+
+Flag : FLAG-PcttpB5gR3faGUnuf6i1VP90ZMj42IEn
+

@@ -1,0 +1,8 @@
+TODO : Fill me up
+
+from memory : Used 'python -m SimpleHTTPServer' to create an http server
+
+Than from level1 shell, use python to do an HTTP request to "http:/127.0.0.1/flag.txt"
+
+Flag : FLAG-OTQKB0274fwtxk3v2rTLCd0l5v7KNp7F
+

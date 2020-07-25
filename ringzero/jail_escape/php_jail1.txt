@@ -1,0 +1,6 @@
+Easy peasy
+
+simply read the flag.txt file :
+readfile('flag.txt')
+
+FLAG-sW66QEY4y6724723c7w1i0oMt179E75y

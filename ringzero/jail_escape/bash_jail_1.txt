@@ -1,0 +1,17 @@
+Output is redirected to variable
+
+We can spawn a shell using "bash"
+
+We can then cat the 'flag.txt' file to stderr :
+cat flag.txt >&2
+
+---------
+For easier output, we can first send "bash" to the output.
+In the newly spawned shell, we can "bash >&2" which will give us a nice shell with all output redirected to stderr
+
+This is usefull because we come back to this shell often to test stuff for other levels
+
+
+Flag :
+FLAG-U96l4k6m72a051GgE5EN0rA85499172K
+

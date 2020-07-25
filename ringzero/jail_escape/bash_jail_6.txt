@@ -1,0 +1,99 @@
+This one was pretty hard
+
+We don't have infos on allowed characters.
+stdout is piped to /dev/null
+stderr is piped to /dev/null
+stdin is sourced from /dev/null
+
+Did a little python script which connect via SSH to the server (bash_escape_6.py).
+
+First step is to verify which characters are restricted. We send each character individually and read the output via the python script.
+
+We get the following restricted characters : 
+['b', 'c', 'd', 'e', 'f', 'k', 'p', 'r', 's', 't', '&', ';', '$', '#', '?', '*', '@', '>', '<', '(', ')', '/', '{', '}', ':', ',', '%', '~']
+
+Which give use the following allowed characters :
+['a', 'g', 'h', 'i', 'j', 'l', 'm', 'n', 'o', 'q', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '-', '_', '[', ']', '`', '"', "'", '|', '.', '=', '+', '^', '\\']
+
+We go back to the level1 shell to find out which commands we can run:
+ls /usr/bin | cut {until bins} | grep -v "[RESTRICTED_CHARS]"
+
+We have the following cmds available:
+[
+join
+nl
+uniq
+wall
+who
+whoami
+
+uniq can give us the conten of the file.
+
+We can't get any output to the screen but for each command executed, we get the return code.
+
+The path to the flag file is not given, we need to find it.
+
+when we do "uniq {NON_EXISTING_FILE}" we get status code 1
+when we do "uniq {EXISTING_FILE}" we get status code 0
+
+We can use character range "[a-z]" to find file
+
+We use this range to find file "[._a-z0-9]"
+
+To test the command, we started to try to find a file we know exist ".bashrc"
+
+for some reason, we had to specify the first "." otherwise we couldn't match.
+
+to find .bashrc we use "uniq .[._a-z0-9][._a-z0-9][._a-z0-9][._a-z0-9][._a-z0-9][._a-z0-9]"
+
+Once this was working, we try a "bruteforce" scan to find how many characters the flag file have.
+
+We use the python script and send "uniq [._a-z0-9]" then "uniq [._a-z0-9][._a-z0-9]", ... until we find matching files
+
+This brought me on a false path. I could only find one file which had 7 characters.
+After some time poking around, I realized the file was jail.sh which is jail script.
+
+I then scanned the folder again but this time with a '.' before "uniq .[._a-z0-9][._a-z0-9]..."
+
+I found multiple files, 7 chars, 8 chars, 12 chars and 10 chars.
+
+From level1 shell, I knew there was .bashrc, .bash_logout and .profile so i concentrated on the last file which was the flag file.
+
+Found the file with "uniq .[.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9][.a-zA-Z0-9]"
+
+Now that we have the file, we need a way to check what is inside.
+
+We use bash conditions with regex to find check the content of the file :
+"[[ "`uniq .[.][a-z][a-z][a-z][a-z][.][.][a-z][a-z][a-z]`" == {REGEX} ]]"
+
+If the regex match, we get a status 0
+
+All flags have the same format "FLAG-" with 32 random characters
+
+We validated that the flag was contained in the file using :
+[[ "`uniq .[.][a-z][a-z][a-z][a-z][.][.][a-z][a-z][a-z]`" == [a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-] ]]
+
+then
+[[ "`uniq .[.][a-z][a-z][a-z][a-z][.][.][a-z][a-z][a-z]`" == [F][L][A][G][-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-][a-zA-Z0-9_\-] ]]
+
+After that, it's a matter of trying some filters.
+
+I manually checked for Characters with number and Upper cases which gave this :
+[[ "`uniq .[.][a-z][a-z][a-z][a-z][.][.][a-z][a-z][a-z]`" == [F][L][A][G][-][A-Z][a-z][A-Z][0-9][A-Z][A-Z][0-9][0-9][a-z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][a-z][A-Z][A-Z][0-9][A-Z][A-Z][a-z][0-9][A-Z][A-Z][0-9][a-z][A-Z] ]]
+
+Since all upper case and numbers are allowed, we used the python script to try all possible values for [A-Z] and [0-9].
+
+After some time we get:
+[F][L][A][G][-][W][a-z][C][8][X][Y][9][6][a-z][O][M][R][L][D][N][Z][L][I][X][a-z][B][O][1][L][D][a-z][6][G][X][4][a-z][U]
+
+I could have written code to test the a-z cases but since we can only use specific characters it was faster to just try find the 5 [a-z] filters manually
+
+Finally we get 
+[[ "`uniq .[.][a-z][a-z][a-z][a-z][.][.][a-z][a-z][a-z]`" == [F][L][A][G][-][W][m][C][8][X][Y][9][6][j][O][M][R][L][D][N][Z][L][I][X][a][B][O][1][L][D][v][6][G][X][4][x][U] ]]
+
+Which give the flag :
+FLAG-WmC8XY96jOMRLDNZLIXaBO1LDv6GX4xU
+
+
+All well and done :D
+

@@ -1,0 +1,8 @@
+TODO : Fill me up
+
+From memory : Used python3 to spawn a shell then read flag.txt file and output content to >&0 using /proc/{PID}/fd/0
+
+
+flag :
+FLAG-s9wXyc9WKx1X6N9G68fCR0M78sx09D3j
+
