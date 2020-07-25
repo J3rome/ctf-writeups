@@ -100,7 +100,9 @@ for i in range(len(passwd), passwd_len):
 print(f"Natas16 password is {passwd}")
 ```
 
+We use the `BINARY` operator before the `password` field because we want `case-sensitive` search
+
 We get Natas16 password :
 ```
-waiheacj63wnnibroheqi3p9t0m5nhmh
+WaIHEacj63wnNIBROHeqi3p9t0m5nhmh
 ```
