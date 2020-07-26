@@ -21,8 +21,8 @@ prefixes_to_try = []
 	#prefixes_to_try.append(f"3{a}3{b}3{c}3{d}3{e}3{f}3{g}3{h}3{i}3{k}2")
 
 not_found = True
-count = sys.argv[1]
-while count < sys.argv[1] + sys.argv[2]:
+count = int(sys.argv[1])
+while count < int(sys.argv[1]) + int(sys.argv[2]):
 	combinations = itertools.combinations_with_replacement(range(10), count)
 	for combination in combinations:
 		prefix = ""
