@@ -1,6 +1,5 @@
 import requests
 import itertools
-import sys
 
 url = "http://natas19:4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs@natas19.natas.labs.overthewire.org"
 
