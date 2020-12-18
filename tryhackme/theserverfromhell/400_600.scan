@@ -1,0 +1,963 @@
+========================================
+Port : 400
+HTTP/1.0 637 g
+Server: glass/6812 Python/hmImQ
+========================================
+Port : 401
+HTTP/1.0 401 Unauthorized.
+WWW-Authenticate: Basic realm="GAI-Tronics"
+Content-Type: text/html
+
+<HTML><HEAD><TITLE>401 Unauthorized.</TITLE>
+</HEAD><BODY>
+<H1>401 Unauthorized</H1>The requested URL / requires authorization.<P>
+<HR>
+</BODY></HTML>
+========================================
+Port : 402
++OK POP3 Ready <5{3,6}.1d{8}@i
+========================================
+Port : 403
+220 KM-Yzjbf FTP server
+========================================
+Port : 404
+Couldn't decode... printing bytes
+b'0\x84000I\x02\x01\x01a\x84000@\n\x01\x02\x040\x049historical protocol version requested, use LDAPv3 instead\n'
+========================================
+Port : 405
+220 Windrone Server (Win32)
+========================================
+Port : 406
+HTTP/1.1 832 j
+Date: y
+Server: BlueDragon Server 18921116
+========================================
+Port : 407
+HTTP/1.1 122 h
+
+<BODY><CENTER><BR><BR><strong><font size=5 face=verdana>SRW224 24-Port 10/100 + 2-Port Gigabit <BR>
+========================================
+Port : 408
+HTTP/1.1 200 OK
+rServer: Indy/iecydV
+========================================
+Port : 409
+HTTP/1.1 200 Ok
+Server: micro_httpd
+tcfeVersion = '1.0.37-0.x';
+if (cfeVersion.charAt(9) == '7')
+   document.writeln("<title>Tecom AH4222</title>");
+else
+   document.writeln("<title>Tecom AH4021</title>
+========================================
+Port : 410
+HTTP/1.0 400 String index out of range: -1
+Content-Type: text/html
+========================================
+Port : 411
++OK daKJcI Oracle Email Server espop3	9 	  is ready
+========================================
+Port : 412
+220 Qqb Dell ZxDiaD FTP Server wOopC ready.
+========================================
+Port : 413
+HTTP/1.1 796 rServer: Virata-EmWeb/R47
+========================================
+Port : 414
+Couldn't decode... printing bytes
+b'\x11\x11\x11**NPy-hjNT\r\r[CONNECT TCP/IP/1859896/TELNET]\r\nT-Mail v.\x9b\x16 (C) 1992-99 by Andy Elkin\r\n**\n'
+========================================
+Port : 415
+* OK Y IMAP4rev1 MDaemon 5mufURIgTk ready
+========================================
+Port : 416
+Couldn't decode... printing bytes
+b'\xff\xfb\x03\xff\xfb\x01\r\r\nUsername:\r\r\nError: Username must be non-NULL\r\r\nUsername:\r\r\nError: Username must be non-NULL\r\r\nUsername:\n'
+========================================
+Port : 417
+HTTP/1.0 200 Okay
+Connection: close
+Server: BaseSwitch 801FM
+Content-Type: text/html
+
+<HTML>
+<HEAD><TITLE>Welcome to Transtec AG WEBServer</TITLE>
+========================================
+Port : 418
+index.html">
+<
+========================================
+Port : 419
+220 "Welcome to Bot FTP service."
+331 Please specify the password.
+230 Login successful. Have fun.
+========================================
+Port : 420
+RTSP/1.0 200 OK
+jServer: Helix uSBVYPlfTServer Plus Version 2826 (win32)
+========================================
+Port : 421
+Couldn't decode... printing bytes
+b'\xff\xfd0\xff\xfd\x03\xff\xfb0\xff\xfb\x03\xff\xfb\x01\x03\x04\r\nPassword: \r\n\n\rComtrol DeviceMaster RTS   ModelID: 1\n\r\rNS-Link BFqShh \n\rBuilt: l\n\rIP Addr: 50312  Mask: 25 Gateway: 975 \n\rMAC Addr: zDVW \n\r\n\r\r\n\rdm> \r\nInvalid Command\r\n\rdm>\n'
+========================================
+Port : 422
+HTTP/1.0 200 OK
+Server: Apache
+c<TITLE>HTML-Konfiguration</TITLE>wprodname="Speedport_W_aTyp_B";
+========================================
+Port : 423
+HTTP/1.1 450 e
+Server: WebSnmp Server Httpd/571
+========================================
+Port : 424
+220 GbSvndxzk FTP server.
+214- FTPD supported commands(RFC959 subset):
+========================================
+Port : 425
+HTTP/1.0 303 Use Instead
+Location: /index.html
+Content-Type: text/html
+========================================
+Port : 426
+220eSMTP Welcome to the IA eMailServer Corporate Edition Version: 33 Build: 16806963
+========================================
+Port : 427
+HTTP/1.1 543 p
+Connection: close
+Content-Type: text/html
+Content-Length: 0r
+Expires: 0r
+Cache-Control: no-cache
+Server: Indy/6993
+Location: /prtg.htm
+Set-Cookie: PRTG4SESSION=
+========================================
+Port : 428
++Shiva SFTP Service0
+========================================
+Port : 429
+LXK:
+========================================
+Port : 430
+000$sequence_number=[0] result=[-2005] 0
+========================================
+Port : 431
+Sorry, already connected.
+$| p|Slirp PPP/SLIP-on-terminal emulator telnetd
+========================================
+Port : 432
+HTTP/1.0 404 no application for: /
+Server: HttpServer
+========================================
+Port : 433
++OK POP3 Ready <9{3,6}.1d{8}@o
+========================================
+Port : 434
+HTTP/1.0 200 OK
+Conneccept-Ranges: none
+l<title>Citrix Access Portal</title>
+========================================
+Port : 435
+uBMC TM ART Version _ni_IOL, Build 2from 758, Copyright ? 280- BMC Software, Inc. | All Rights Reserved.
+========================================
+Port : 436
+000
+========================================
+Port : 437
+SSH-2.0-Unknown?
+========================================
+Port : 438
+220  IBM TCP/IP for OS/2 - FTP Server ver 676 on t ready.
+| p|IBM OS/2 ftpd| v/$1/ o|OS/2
+========================================
+Port : 439
+HTTP/1.0 988 d
+Date: d
+Server: Tcl-Webserver/65557 jCRADLE VERSION 38970 CONTENTS TEMPLATE
+========================================
+Port : 440
+HTTP/1.0 200 OK
+
+<HTML><TITLE>TightVNC desktop [ZLYPn]</TITLE>
+<APPLET CODE=vncviewer.class ARCHIVE=vncviewer.jar WIDTH=9HEIGHT=0
+<param name=PORT value=9
+========================================
+Port : 441
+0000000000000000
+========================================
+Port : 442
+HTTP/1.820 r
+Server: Twisted/421900958 TwistedWeb/SVN-Trunk
+========================================
+Port : 443
+Couldn't decode... printing bytes
+b'\xff\xfd\x01\xff\xfd\x1f\xff\xfd!\xff\xfb\x01\xff\xfb\x03\r\r\n login: \n'
+========================================
+Port : 444
+220 Welcome to the mail server.
+211 DATA EXPN HELO MAIL NOOP QUIT RCPT RSET SAML SEND SOML TURN VRFY
+========================================
+Port : 445
+HTTP/1.404 Not Found
+dServer: Netgem/7 (NeufboxTV UPnPServer)
+========================================
+Port : 446
+HTTP/1.0 650 u
+Proxy-agent: Ositis-WinProxy
+========================================
+Port : 447
+HTTP/1.0 400 Invalid header received from browser
+
+$| p|Junkbuster/Privoxy webproxy
+========================================
+Port : 448
+HTTP/1.1 404 Not found
+Server: BadBlue/838493715
+========================================
+Port : 449
+HTTP/1.0 401 Unauthorized
+Server: 
+aWWW-Authenticate: Basic realm="Please enter your user name and password on DSL-NKS"
+========================================
+Port : 450
+220 Titan FTP Server 8586 Ready.
+========================================
+Port : 451
+220 S+ Service ready by DvISE PostMan (4) ESMTP Server
+========================================
+Port : 452
+<stream:error><bad-format xmlns='urn:ietf:params:xml:ns:xmpp-streams'/></stream:error></stream:stream>
+========================================
+Port : 453
+:VZY_N 451  :You have not registered your connection
+========================================
+Port : 454
+000ip_infilter=true
+========================================
+Port : 455
+[0m
+Welcome to IC-3
+
+7[?25l[501;501H[6n8[?25h[0m[1mIC-5# [0m[J[10C
+========================================
+Port : 456
+Couldn't decode... printing bytes
+b'\x8000$000\x01irld000000\x05\x02000000000000000\x030000\n'
+========================================
+Port : 457
+HTTP/1.0 304 Not Modified
+Content-Length: 0
+Server: Unknown
+========================================
+Port : 458
+HTTP/1.1 360 u
+Server: D-Link Internet Camera
+u<title>DCS-k/title>
+========================================
+Port : 459
+Couldn't decode... printing bytes
+b'HTTP/1.382 pServer: Zope/(?:Zope ?^,)]+,?s*\xa0\xe4\xf2\xb8)S*s+\x05\xc3t1\r\n\n'
+========================================
+Port : 460
+HTTP/1.1 302 
+Content-Type: text/html
+Connection: Close
+LOCATION: https://speedport.ip/
+Content-Length: 155
+
+<head><title>302 Document moved</title></head><body><h1>302 Document moved</h1>This document has moved <a href="https://speedport.ip//">here</a>.<p></body>
+========================================
+Port : 461
+00am0fu0yk
+========================================
+Port : 462
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfb\x03\r\nlogin: \n'
+========================================
+Port : 463
+Couldn't decode... printing bytes
+b'GIF89a\xa80-0\xf700\x03\x03\x03\x83\x83\x83\xc4\xc4\xc4\xfe\x02\x02\xc9\x85c\x85|\xb5\xe2\xe2\xe2\xca\xa2\x8e\xd4RRCCC\xdeb"\xa5\xa5\xa5\xe7\xc5\n'
+========================================
+Port : 464
+RTSP/1.0 400 Bad Request
+Cseq: 2r
+Server: fbxrtspd/fyohYAu Freebox RTSP server
+========================================
+Port : 465
+HTTP/1.0 200 OK
+Cache-Control: no-cache
+Content-Type: text/html
+Content-Length: 6r
+Server: MediaMallServer/f_V
+========================================
+Port : 466
+HTTP/1.1 301 Moved Permanently
+Date: f
+Location: https://eaVNxz/
+Connection: close
+Content-Type: text/html
+Content-Length: 56
+
+<HTML><BODY><H1>301 Moved Permanently</H1></BODY></HTML>
+========================================
+Port : 467
+0
+login:
+========================================
+Port : 468
+You do not have permission to connect to the builder port.
+Talk to an admin at port 1for entry.
+========================================
+Port : 469
+Couldn't decode... printing bytes
+b'\xff\xff\xff\xffstatusResponse\nr\\version\\tremulous (\x7fO linux-/\xe1\xe7/\xe6AK)(?=\\)\n'
+========================================
+Port : 470
+220 localhost Dumbster SMTP service ready
+========================================
+Port : 471
+220 ESMTP Postfix
+501 Syntax: EHLO hostname
+========================================
+Port : 472
+HTTP/1.1 404 Not Found
+Date: evm 16, 03:02:11.259
+Server: TreeNeWS/jRHDwyp
+Mime-Version: 1.0
+Content-Length: 173
+Content-Type: text/html
+
+<HTML><HEAD><TITLE>Not Found</TITLE></HEAD>
+<BODY><H1>Not Found</H1>
+<br>&nbsp;&nbsp;The requested URL was not found on this server.
+<br><H2>Error 404</H2></BODY></HTML>
+========================================
+Port : 473
+200-At least a module and a command must be specified
+200-At least a module and a command must be specified
+========================================
+Port : 474
+HTTP/1.0 501 Unimplemented
+Content-Type: text/plain
+Content-Length: 17
+
+501 Unimplemented
+========================================
+Port : 475
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfe\x01\xff\xfd\x03\xff\xfb\x03\x1b[0;0H\x1b[0J\x1b[0;0H\x1b[0J\x1b[1;28HAT-j Login Menu\x1b[5;18HAT-DNzZMQwgb Local Management System Version 7541 \x1b\n'
+========================================
+Port : 476
+HTTP/1.1 200 OK
+Connection: close
+Content-type: image/gif
+Pragma: no-cache
+Content-Length: 22528
+
+MZ
+========================================
+Port : 477
+* OK AVM KEN!4 IMAP Server ready
+========================================
+Port : 478
+HTTP/1.0 404 Not Found
+Date: o
+Content-Length: 0
+========================================
+Port : 479
+SSH-5672-lancom?
+========================================
+Port : 480
+Debian GNU/Linux      Copyright (C) 1993-1999 Software in the Public Interest
+yYou haven't specified a user.
+
+               A general listing is not provided to the public.
+========================================
+Port : 481
+HTTP/1.0 302 Found
+Location: sip:nm
+Server: BigIP
+Connection: close
+Content-Length: 0
+========================================
+Port : 482
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfb\x03\n\r\n\r\n\r  Huawei HONET UA5000 Universal Access Unit.\n\r  Copyright(C) 1998-2005 by Huawei Technologies Co., Ltd.\n\r\r\n>>User name:\n'
+========================================
+Port : 483
+220 FTP print service:V-6lZEg/Use the network password for the ID if updating.
+| p|Brother/HP printer ftpd
+========================================
+Port : 484
++OK F-Secure/fsigk_pop/3cewz starting.
+========================================
+Port : 485
+*B1E1d02.4
+========================================
+Port : 486
+HTTP/1.0 403 Forbidden
+Server: HASP LM/Yc
+Date: e
+Content-Type: text/html
+Content-Length: 137
+
+<title>403 Forbidden</title>
+<h1>403 Forbidden</h1>
+Access to this resource has been denied to you.
+<p>Please contact the administrator.
+========================================
+Port : 487
+Couldn't decode... printing bytes
+b'h<address>Apache/62772 (*\x91\xa9b#B\x15) Server at xx Port 7/address>\n</body></html>\n\n'
+========================================
+Port : 488
+HTTP/1.0 401 Unauthorized
+Server: uhttpd/pkWWW-Authenticate: Basic realm="NETGEAR f"
+========================================
+Port : 489
+220-Tracker RIA, 12090011
+220-Local time 5
+220 You will be disconnected after 180 seconds of inactivity.
+========================================
+Port : 490
+Couldn't decode... printing bytes
+b'\xf9\xbe\xb4\xd9version00000U000\x02}00\x010000000egqpoycq\x0100000000000000000\xff\xffsgbytd\x0100000000000000000\xff\xffvpraowjdyhomnp0crbg\n'
+========================================
+Port : 491
+HTTP/1.1 905 r
+MIME-Version: 39211029
+Server: JC-HTTPD/8706
+w<TITLE>IB-FmaCYZ</TITLE>
+========================================
+Port : 492
+220 WugCN SMTP service ready
+214 Help message
+========================================
+Port : 493
+HTTP/1.1 386 u
+Date: i
+Server: IBM_HTTP_SERVER/8NYokk +Apache/4VesUDZ (Unix) DAV/70022
+========================================
+Port : 494
+HTTP/1.1 800 d
+Server: Virata-EmWeb/R82_75396
+i<TITLE>optiPoint4tandard Home Page</TITLE>
+========================================
+Port : 495
+RFB 003.004
+0000000jServer license key is missing, invalid or has expired.
+Visit http://www.realvnc.com to purchase a licence.
+========================================
+Port : 496
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfd\x1f\xff\xfb\x03\r\nmKpyM Telnet/SSH Server - fully functional unregistered version.\r\n\n'
+========================================
+Port : 497
+200dCitadel?:/UX?
+========================================
+Port : 498
+Couldn't decode... printing bytes
+b'\x1b[?25l\xff\xfb\x01\xff\xfb\x03\xff\xfc"\xff\xfd\x1f\x1b[2J\x1b[0m\x1b[40m\x1b[30m\x1b[1;1H\x1b[34;1m\xe2\x95\x94Enter your nickname for this session (Alt+1)\xe2\x95\x90\n'
+========================================
+Port : 499
+220 mandelbrot FTP server (Version 45 (NeXT 958113480) b) ready.
+========================================
+Port : 500
+* OK AXIGEN h_ (Linux/i686) IMAP4rev1 service is ready
+========================================
+Port : 501
+200 poppassd hello, who are you?
+========================================
+Port : 502
+HTTP/1.0 405 Method Not Allowed
+Allow: GET, HEAD, POST, PUT
+========================================
+Port : 503
+220 YievqVuK  ESMTP
+501 Syntax: EHLO hostname
+========================================
+Port : 504
+HTTP/1.0 018 y
+Date: i
+Server: Check Point SVN foundation
+========================================
+Port : 505
+HTTP/1.1 200 OK
+Date: c
+Server: Oversee Webserver vZV
+========================================
+Port : 506
+'http://etherx.jabber.org/streams' xmlns='jabber:server' version='1.0' id=''><stream:error><not-well-formed xmlns
+========================================
+Port : 507
+HTTP/1.1 200 OK
+Connection: close
+Content-Length: 3r
+Access-Control-Allow-Origin:*
+Cache-Control:no-cache
+Content-Type:application/json; charset=utf-8
+Pragma:no-cache
+
+{"error": { "type": "4110", "message": "No user logged in" }, "version": 9, "client_version": "GcKo", "running": false}
+========================================
+Port : 508
+220-v Stalker Internet Mail Server V.sXmO is ready.
+========================================
+Port : 509
+220 FTPU ready.
+500 Sorry, no such command.
+========================================
+Port : 510
+HTTP/1.1 200 OK
+Connection: Close
+Pragma: no-cache
+Cache-Control: private, max-age=0
+Date: v
+Expires: -1
+Content-Type: text/html
+Transfer-Encoding: chunked
+Refresh: 60; URL=
+
+f20-0
+<HTML><title>Q unRAID Server</title>
+========================================
+Port : 511
+HTTP/1.0 404 Not Available
+Content-Type: text/html
+
+<b>The file you requested could not be found</b>
+========================================
+Port : 512
+400 No space left on device writing SMstore file -- throttling
+========================================
+Port : 513
+220yHello!  I'm Gene6 FTP Server veSyA (Build 3).
+========================================
+Port : 514
+Couldn't decode... printing bytes
+b'\xff\xfd\x01\xff\xfd!\xff\xfb\x01\xff\xfb\x03\r\n\r\n\r\n\r\nBCMdBroadband Router\r\n\n'
+========================================
+Port : 515
+HTTP/1.1 648 q
+Server: Virata-EmWeb/R0115514
+Content-Type: text/html
+Cache-Control: no-cache
+Pragma: no-cache
+
+b<title>Cisco Systems, Inc. VPN 3002 Hardware Client
+========================================
+Port : 516
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfb\x03\xff\xfd\x03\r\n\r\n\r\nWelcome to RSqversion V.D-b Rev. FNP- (Patch NAblGqYE) IPSec from 6033/69/49 00:00:00\r\nsystemname is K, location q\r\n\r\n\r\nLogin: \n'
+========================================
+Port : 517
+<error>
+Client limit exceeded.
+========================================
+Port : 518
++OK ArGoSoft Mail Server POP3 Module v.z-rENW at
+========================================
+Port : 519
+HTTP/1.0 302 Moved Temporarily
+hServer: JavaHttpServer/zW
+lPragma: /obligation
+========================================
+Port : 520
+Couldn't decode... printing bytes
+b'?\x80\x04000\x00000000000\xff\xff\xff\xff00000000000000\x00\x000000000000000Z00\x01000\x016\x01,00\x080\x7f\xff\x7f\x08000\x010 0:000000000000000\x004\xe600\n'
+========================================
+Port : 521
+HTTP/1.1 698 m
+WWW-Authenticate: Basic realm="InterMapper"
+f
+Server: InterMapper/11029074
+========================================
+Port : 522
+Couldn't decode... printing bytes
+b'\r\nWbkNw 363637 - Unauthorized access \x07prohibited under penalty of law.\r\n\r\nlogin: \xff\xfc\x01\n'
+========================================
+Port : 523
+Couldn't decode... printing bytes
+b'<?xml version="l\x18\xfa\x04\xc7<\xb2"?<=?>\n'
+========================================
+Port : 524
+HTTP/1.1 200 OK
+oContent-Type: text/html; Charset=UTF-8
+Connection: close
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>d - foobar2000</title>
+========================================
+Port : 525
+HTTP/1.0 200 OK
+Server: RapidLogic/o
+e<title>nwkgrp2 Group Manager</title>
+========================================
+Port : 526
+HTTP/1.1 401 Unauthorized
+Date: g
+Server: Agranat-EmWeb/R13
+WWW-Authenticate: Basic realm="read@"
+
+401 Unauthorized
+========================================
+Port : 527
+HTTP/1.0 200 OK
+Pragma: no-cache
+Content-Type: text/html
+
+u<title>OfficeConnect 11Mbps Wireless Access Point</title>
+========================================
+Port : 528
+Invalid FT GWADDR / START protocol
+========================================
+Port : 529
+Couldn't decode... printing bytes
+b'\x01\x0300llycrxli0000ecqxuyvs\x8f\xfbxV\r\xdc\x1c\x14*\tMacintosh\x04\x06AFP3.2\x06AFP3.1\x06AFPX03\x06AFP2.2t\x06Recon1\rClient Krb v2\x0fNo User Authent0qlj-]+\x01fafpserver/CSkfOm0\n'
+========================================
+Port : 530
+HTTP/1.1 951 p
+Server: WatchGuard Firewall
+www-authenticate: Digest realm="WatchGuard SOHO e Configuration"
+========================================
+Port : 531
+iFinger v4KqOJndw
+========================================
+Port : 532
+HTTP/1.0 301 Moved Permanently
+Cache-Control: no-cache
+Connection: close
+Accept-Ranges: none
+Location: /CitrixLogonPoint/AccessGateway/
+========================================
+Port : 533
+220 ZBR-79071 Version VsNeEdSpp ready.
+500 Syntax error, command unrecognized or malformed
+500 Syntax error, command unrecognized or malformed
+========================================
+Port : 534
+HTTP/1.1 200 OKd* Zimbra Collaboration Suite Web Client
+========================================
+Port : 535
+HTTP/1.0 500 Internal Server Error
+Connection: Close
+Content-Type: text/html
+s<p>java.lang.Exception: Invalid request: HELP</p>
+========================================
+Port : 536
+SSH-2.0-mpsa57B_3A
+========================================
+Port : 537
+HTTP/1.0 200 OK
+Connection: close
+Accept-Ranges: none
+s<title>Citrix Access Gateway</title>
+========================================
+Port : 538
+OK
+========================================
+Port : 539
+HTTP/1.0 253 cServer: ListManagerWeb/BVGZJWzps (based on Tcl-Webserver/19)
+========================================
+Port : 540
+6 9: USERID : UNIX : C
+========================================
+Port : 541
+HTTP/1.1 178 q
+WWW-Authenticate: Basic realm="Netopia-u"
+Content-Type: text/html
+Server: Allegro-Software-RomPager/57315231
+========================================
+Port : 542
+00
+========================================
+Port : 543
+HTTP/1.0 183 j
+Server: bozohttpd/jr
+========================================
+Port : 544
+RTSP/1.0 400 Bad Request
+Server: AirTunes/gyMyCtV
+Audio-Jack-Status: connected; type=analog
+========================================
+Port : 545
+220 C Miralix SMSGwSMTP Ready
+========================================
+Port : 546
++OK POP3 Greetings from minipop 68302470 <9082@KSgYndW->
+========================================
+Port : 547
+* OK IMAP4rev1 DvISE Mail Access Server MA-lBCqxHI (s)
+========================================
+Port : 548
+HTTP/1.1 400 Bad Request
+Server: Linux, UPnP/372295, DIR-J Ver 839770863
+========================================
+Port : 549
+HTTP/1.0 200 OK
+Server: TopLayer/qWWT
+mALT="Welcome to the AppSwitch"|s p|Top Layer Networks AppSafe/AppSwitch IDS http config
+========================================
+Port : 550
+<boinc_gui_rpc_reply>
+<client_version>9/client_version>
+<unauthorized/>
+</boinc_gui_rpc_reply>
+========================================
+Port : 551
+HTTP/1.0 288 j
+Server: httpd-impacct/471216 960273
+========================================
+Port : 552
+"00
+========================================
+Port : 553
+HTTP/1.0 088 m
+Set-Cookie: Ipswitch={
+========================================
+Port : 554
+Couldn't decode... printing bytes
+b'\xff\xfd\x01\xff\xfd!\xff\xfb\x01\xff\xfb\x03\r\nBusyBox on (none) login: \n'
+========================================
+Port : 555
+Couldn't decode... printing bytes
+b'\xff\xfc\x01\xff\xfb\x01\xff\xfb\x03\xff\xfd\x18\xff\xfb\x18\xff\xfd\x1f\xff\xfb\x1f\xff\xfb"\xff\xfb\x05PTLDOR69SH3HT4000HG6 Hatteras vr\nLogin: \n'
+========================================
+Port : 556
+HTTP/1.0 200 OK
+
+<HTML>
+<BODY>
+
+<APPLET CODE="SimpleCamApplet2.class" CODEBASE="http://lVTdYXj-a/w" WIDTH="6" HEIGHT="9">
+========================================
+Port : 557
+Couldn't decode... printing bytes
+b'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nrServer: Allegro-Software-RomPager/BVSL\r\n\r\n\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n<html>\n<head>\n<title>\nI\xa1\xa4 \x8d{&nbsp;- Status</title>\n'
+========================================
+Port : 558
++OK POP3 yLajg (Version cAnNt) http://surgemail.com
+========================================
+Port : 559
+000
+========================================
+Port : 560
+HTTP/1.0 200 OK
+Content-type: text/plain
+
+Table: Links
+Local IP	Remote IP	Hyst.	LQ	NLQ	Cost
+awbtKGlN	frq	385996	2	7980091	99301450
+========================================
+Port : 561
+SSH-74-XSlDGmLW sshlib: GlobalScape?
+========================================
+Port : 562
+HTTP/1.1 302 Object Moved
+Server: NS_w
+Location: http://J/wts
+========================================
+Port : 563
+220 
+500-'
+500  ': command not understood.
+500-'
+500  ': command not understood.
+========================================
+Port : 564
+<HTML><HEAD><META HTTP-EQUIV=refresh CONTENT=30; 
+		url=status.html><TITLE>Stratasys Modeler Queue &amp; Job Status</TITLE>
+========================================
+Port : 565
+HTTP/1.1 200 OK
+Date: d
+Server: OpenSA/358959 / Apache/2 (h) mod_ssl/448051161 OpenSSL/6
+o<LINK REL="SHORTCUT ICON" HREF="http://Cy/iss.ico">
+<TITLE> System Scanner Vista Welcome Page </TITLE>
+|s p/ISS System Scanner Vista/ i|OpenSA/$1 Apache/$2 mod_ssl/$4 OpenSSL/$5
+========================================
+Port : 566
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\xff\xfe\x01\xff\xfd\x03\xff\xfb\x03\x1b[0;1H\x1b[J\x1b[1;1H\x1b[0;1H\x1b[J\x1b[1;1H\x1b[0m =+\r\n AT-8326GB Management System Version 862231 \r\n Remote - Telnet\r\n\n'
+========================================
+Port : 567
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\n\rSSH service name not present in rcvd msg\n\rSSH Session task 0xa Version Exchange Failed\n\r\n\r\n\rSSH service name not present in rcvd msg\n\r\n'
+========================================
+Port : 568
+6c
+ 0 succeeded
+0
+========================================
+Port : 569
+star-v3 utility server
+0
+========================================
+Port : 570
+HTTP/1.1 930 f
+Server: UltiDev Cassini/cJpxVjVB
+========================================
+Port : 571
+HTTP/1.1 200 OK
+mServer: Blue Coat Reporter
+f<title>Blue Coat Reporter 493377</title>
+========================================
+Port : 572
+220- 
+uwww.imatix.com --
+========================================
+Port : 573
+HTTP/1.1 200 OK
+Server: BO/kNIhuAr
+Date: i
+Content-type: text/html
+Public: GET, POST
+Connection: keep-alive
+========================================
+Port : 574
+Couldn't decode... printing bytes
+b'~x30xa0\x03\x02\x01\x05\xa1\x03\x02\x01\x1e\xa4\x11\x18\x0f91581103077122Z\xa5x02?:\x03xug|\x02fk|\x01b\xa6\x03\x02\x01<\xa9\x04\x1b\x02NM\xaa\x170\x15\xa0\x03\x02\x010\xa1\x0e0\x0c\x1b\x06krbtgt\x1b\x02NM\xab\x16\x1b\x14No client in request\n'
+========================================
+Port : 575
+Couldn't decode... printing bytes
+b'\xff\xfb\x01\r\n\r\nlogin: \r\n\r\n\r\r\npassword: \n'
+========================================
+Port : 576
+HTTP/1.064 n
+Date: r
+Server: Embperl/uMVM Apache/eMHy (Fedora)
+========================================
+Port : 577
+HTTP/1.0 503 Service Unavailable
+Date: s GMT
+Server: Embedthis-Appweb/CKAPD
+========================================
+Port : 578
+HTTP/1.384 q
+Date: h
+Server: PWS/hwBrqo
+========================================
+Port : 579
+HTTP/1.0 200 Ok
+Server: CAMEO-httpd
+w<title>D-LINK SYSTEMS, INC | WIRELESS AP | LOGIN</title>
+========================================
+Port : 580
+SSH-8704-OpenSSH_tTcxuubyi FreeBSD-openssh-portable-?:jSIWOSH?
+========================================
+Port : 581
+Couldn't decode... printing bytes
+b'\xff\xfb\x03\xff\xfb\x01Alcatel-Lucent: A7510\r\nA7510_R3k\r\n\r\n\r\nLogin: \n'
+========================================
+Port : 582
+HTTP/1.0 500 no query
+========================================
+Port : 583
+esuvDVGcc
+========================================
+Port : 584
+HTTP/1.1 200 OK
+Content-Type: text/plain
+
+Bitlash web server here! v_GwSU
+Uptime: dr
+Powered by Bitlash.
+========================================
+Port : 585
+220-Rival Group FTP Server
+220-Unauthorized access prohibited
+220 All activity is logged.
+214-CesarFTP server L_Dyi supports the following commands:
+214-ABOR ACCT ALLO APPE CDUP CWD  DELE HELP LIST
+214-MDTM MKD  MODE NLST NOOP PASS PASV PORT PWD 
+214-QUIT REIN REST RETR RMD  RNFR RNTO SITE SMNT
+214-STAT STOR STOU STRU SYST TYPE
+214-
+214-CesarFTP server Hkv supports specific commands
+214-invoked with the SITE command:
+214-
+214-SITE MSG
+214-
+214
+========================================
+Port : 586
+HTTP/1.0 200 OK
+
+<HTML>
+<HEAD>
+<TITLE>JetDirect Home Page</TITLE>
+
+</HEAD>
+<BODY>
+<P>
+Welcome to the HP JetDirect print server!
+========================================
+Port : 587
+HTTP/1.801 p
+Server: Jetty(7oqduScTyj)
+
+lContexts known to this server are: <ul><li><a href="/ninan/">/ninan
+========================================
+Port : 588
+220 FTP server ready.
+214- The following commands are recognized (* =>'s unimplemented).
+   USER    PORT    TYPE    MLFL*   MRCP*   DELE    SYST    RMD     STOU 
+   PASS    LPRT    STRU    MAIL*   ALLO    CWD     STAT    XRMD    SIZE 
+   ACCT*   EPRT    MODE    MSND*   REST    XCWD    HELP    PWD     MDTM 
+   SMNT*   PASV    RETR    MSOM*   RNFR    LIST    NOOP    XPWD 
+   REIN*   LPSV    STOR    MSAM*   RNTO    NLST    MKD     CDUP 
+   QUIT    EPSV    APPE    MRSQ*   ABOR    SITE    XMKD    XCUP 
+214 End.
+========================================
+Port : 589
+Couldn't decode... printing bytes
+b'\xff\xfb\x01login: \n'
+========================================
+Port : 590
+Couldn't decode... printing bytes
+b'\x04\x010\x1a0000\xaa\x01\x0eLogin failed.\n\xfd\n'
+========================================
+Port : 591
+HTTP/1.0 215 h
+qServer: Medusa/TU
+========================================
+Port : 592
+HTTP/1.1 200 OK 
+Content-type: text/html
+q<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Chumby FM Radio</title>
+========================================
+Port : 593
+SSH-104149-xxxxxxx?
+| p|Fortinet VPN/firewall sshd
+========================================
+Port : 594
+* OK IMAP4 IMAP4rev1 Server
+GET BAD Unrecognised Command
+========================================
+Port : 595
+HTTP/1.292 a
+Server: Tarantella/649817
+========================================
+Port : 596
+"Enable Mode"
+Content-Type: text/html
+Server: Allegro-Software-RomPager/020563008
+
+<HTML><HEAD><TITLE><script>document.location.href
+========================================
+Port : 597
+Couldn't decode... printing bytes
+b'\xff\xfb\x03\xff\xfb\x01\n\r\n\r\n\rWelcome to the SIA2410R\n\r\n'
+========================================
+Port : 598
+220-Serv-U FTP Server for Winsock
+========================================
+Port : 599
+Couldn't decode... printing bytes
+b'HTTP/1.798 \xd0N\x13\x81\xb26B\xc1\r\nrServer: nginx\r\n\n'
+Done...
+expired
+[]
