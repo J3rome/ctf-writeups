@@ -1,0 +1,94 @@
+# Nmap 7.80 scan initiated Fri Dec 11 21:55:46 2020 as: nmap -sC -sV -oN nmap.initial -v -Pn 10.10.65.69
+Nmap scan report for 10.10.65.69
+Host is up (0.10s latency).
+Not shown: 999 filtered ports
+PORT     STATE SERVICE    VERSION
+5003/tcp open  filemaker?
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 12 Dec 2020 02:58:54 GMT
+|     Server: WSGIServer/0.2 CPython/3.8.6
+|     Content-Type: text/html; charset=utf-8
+|     X-Frame-Options: DENY
+|     Vary: Cookie
+|     Content-Length: 7453
+|     X-Content-Type-Options: nosniff
+|     Referrer-Policy: same-origin
+|     Set-Cookie: csrftoken=SqOkdaNPvmLJKF46gvAGi4h3a3XtfyMu1HOiZoFjkIAWmcxS4J8G7282KWytFGWh; expires=Sat, 11 Dec 2021 02:58:54 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+|     <!DOCTYPE html>
+|     <html lang="en">
+|     <head>
+|     <meta charset="utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+|     <meta name="description" content="">
+|     <meta name="author" content="">
+|     <title>[Un]baked | /</title>
+|     <!-- Bootstrap core CSS -->
+|     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+|     <!-- Custom fonts for this template -->
+|     <link href="/static/vendor/fontawesome-free/css/all.min.cs
+|   HTTPOptions: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 12 Dec 2020 02:58:54 GMT
+|     Server: WSGIServer/0.2 CPython/3.8.6
+|     Content-Type: text/html; charset=utf-8
+|     X-Frame-Options: DENY
+|     Vary: Cookie
+|     Content-Length: 7453
+|     X-Content-Type-Options: nosniff
+|     Referrer-Policy: same-origin
+|     Set-Cookie: csrftoken=USMAuKq0GMFOb0FfoeHQVZ1SFi8qytXpzWnJzQXHBLzIsqzn4koEDyaSmMr4RlZO; expires=Sat, 11 Dec 2021 02:58:54 GMT; Max-Age=31449600; Path=/; SameSite=Lax
+|     <!DOCTYPE html>
+|     <html lang="en">
+|     <head>
+|     <meta charset="utf-8">
+|     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+|     <meta name="description" content="">
+|     <meta name="author" content="">
+|     <title>[Un]baked | /</title>
+|     <!-- Bootstrap core CSS -->
+|     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+|     <!-- Custom fonts for this template -->
+|_    <link href="/static/vendor/fontawesome-free/css/all.min.cs
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port5003-TCP:V=7.80%I=7%D=12/11%Time=5FD431EE%P=x86_64-pc-linux-gnu%r(G
+SF:etRequest,1EC5,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2012\x20Dec\x2
+SF:02020\x2002:58:54\x20GMT\r\nServer:\x20WSGIServer/0\.2\x20CPython/3\.8\
+SF:.6\r\nContent-Type:\x20text/html;\x20charset=utf-8\r\nX-Frame-Options:\
+SF:x20DENY\r\nVary:\x20Cookie\r\nContent-Length:\x207453\r\nX-Content-Type
+SF:-Options:\x20nosniff\r\nReferrer-Policy:\x20same-origin\r\nSet-Cookie:\
+SF:x20\x20csrftoken=SqOkdaNPvmLJKF46gvAGi4h3a3XtfyMu1HOiZoFjkIAWmcxS4J8G72
+SF:82KWytFGWh;\x20expires=Sat,\x2011\x20Dec\x202021\x2002:58:54\x20GMT;\x2
+SF:0Max-Age=31449600;\x20Path=/;\x20SameSite=Lax\r\n\r\n\n<!DOCTYPE\x20htm
+SF:l>\n<html\x20lang=\"en\">\n\n<head>\n\n\x20\x20<meta\x20charset=\"utf-8
+SF:\">\n\x20\x20<meta\x20name=\"viewport\"\x20content=\"width=device-width
+SF:,\x20initial-scale=1,\x20shrink-to-fit=no\">\n\x20\x20<meta\x20name=\"d
+SF:escription\"\x20content=\"\">\n\x20\x20<meta\x20name=\"author\"\x20cont
+SF:ent=\"\">\n\n\x20\x20<title>\[Un\]baked\x20\|\x20/</title>\n\n\x20\x20<
+SF:!--\x20Bootstrap\x20core\x20CSS\x20-->\n\x20\x20<link\x20href=\"/static
+SF:/vendor/bootstrap/css/bootstrap\.min\.css\"\x20rel=\"stylesheet\">\n\n\
+SF:x20\x20<!--\x20Custom\x20fonts\x20for\x20this\x20template\x20-->\n\x20\
+SF:x20<link\x20href=\"/static/vendor/fontawesome-free/css/all\.min\.cs")%r
+SF:(HTTPOptions,13F9,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2012\x20Dec
+SF:\x202020\x2002:58:54\x20GMT\r\nServer:\x20WSGIServer/0\.2\x20CPython/3\
+SF:.8\.6\r\nContent-Type:\x20text/html;\x20charset=utf-8\r\nX-Frame-Option
+SF:s:\x20DENY\r\nVary:\x20Cookie\r\nContent-Length:\x207453\r\nX-Content-T
+SF:ype-Options:\x20nosniff\r\nReferrer-Policy:\x20same-origin\r\nSet-Cooki
+SF:e:\x20\x20csrftoken=USMAuKq0GMFOb0FfoeHQVZ1SFi8qytXpzWnJzQXHBLzIsqzn4ko
+SF:EDyaSmMr4RlZO;\x20expires=Sat,\x2011\x20Dec\x202021\x2002:58:54\x20GMT;
+SF:\x20Max-Age=31449600;\x20Path=/;\x20SameSite=Lax\r\n\r\n\n<!DOCTYPE\x20
+SF:html>\n<html\x20lang=\"en\">\n\n<head>\n\n\x20\x20<meta\x20charset=\"ut
+SF:f-8\">\n\x20\x20<meta\x20name=\"viewport\"\x20content=\"width=device-wi
+SF:dth,\x20initial-scale=1,\x20shrink-to-fit=no\">\n\x20\x20<meta\x20name=
+SF:\"description\"\x20content=\"\">\n\x20\x20<meta\x20name=\"author\"\x20c
+SF:ontent=\"\">\n\n\x20\x20<title>\[Un\]baked\x20\|\x20/</title>\n\n\x20\x
+SF:20<!--\x20Bootstrap\x20core\x20CSS\x20-->\n\x20\x20<link\x20href=\"/sta
+SF:tic/vendor/bootstrap/css/bootstrap\.min\.css\"\x20rel=\"stylesheet\">\n
+SF:\n\x20\x20<!--\x20Custom\x20fonts\x20for\x20this\x20template\x20-->\n\x
+SF:20\x20<link\x20href=\"/static/vendor/fontawesome-free/css/all\.min\.cs"
+SF:);
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri Dec 11 22:00:19 2020 -- 1 IP address (1 host up) scanned in 273.63 seconds

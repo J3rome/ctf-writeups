@@ -1,0 +1,35 @@
+# Nmap 7.80 scan initiated Thu Nov 19 20:38:33 2020 as: nmap -v -sC -sV -oN nmap.after_knock 10.10.223.38
+Nmap scan report for 10.10.223.38
+Host is up (0.10s latency).
+Not shown: 995 closed ports
+PORT     STATE SERVICE VERSION
+21/tcp   open  ftp     vsftpd 3.0.2
+22/tcp   open  ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   1024 e7:28:a6:33:66:4e:99:9e:8e:ad:2f:1b:49:ec:3e:e8 (DSA)
+|   2048 86:fc:ed:ce:46:63:4d:fd:ca:74:b6:50:46:ac:33:0f (RSA)
+|   256 e0:cc:05:0a:1b:8f:5e:a8:83:7d:c3:d2:b3:cf:91:ca (ECDSA)
+|_  256 80:e3:45:b2:55:e2:11:31:ef:b1:fe:39:a8:90:65:c5 (ED25519)
+80/tcp   open  http    Apache httpd 2.4.7 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: POST OPTIONS GET HEAD
+|_http-server-header: Apache/2.4.7 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+445/tcp  open  http    Apache httpd 2.4.7 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: POST OPTIONS GET HEAD
+|_http-server-header: Apache/2.4.7 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+8080/tcp open  http    Werkzeug httpd 1.0.1 (Python 3.5.3)
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-server-header: Werkzeug/1.0.1 Python/3.5.3
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_smb2-time: Protocol negotiation failed (SMB2)
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Nov 19 20:39:56 2020 -- 1 IP address (1 host up) scanned in 82.95 seconds

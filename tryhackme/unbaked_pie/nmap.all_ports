@@ -1,0 +1,9 @@
+# Nmap 7.80 scan initiated Fri Dec 11 22:01:22 2020 as: nmap -p- -oN nmap.all_ports -v -Pn 10.10.65.69
+Nmap scan report for 10.10.65.69
+Host is up (0.098s latency).
+Not shown: 65534 filtered ports
+PORT     STATE SERVICE
+5003/tcp open  filemaker
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Sat Dec 12 00:43:23 2020 -- 1 IP address (1 host up) scanned in 9720.90 seconds
