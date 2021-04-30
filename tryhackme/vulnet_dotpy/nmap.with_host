@@ -1,0 +1,15 @@
+# Nmap 7.80 scan initiated Thu Apr 29 17:29:41 2021 as: nmap -sC -sV -oN nmap.with_host -v vulnnet.com
+Nmap scan report for vulnnet.com (10.10.137.74)
+Host is up (0.22s latency).
+Not shown: 999 closed ports
+PORT     STATE SERVICE VERSION
+8080/tcp open  http    Werkzeug httpd 1.0.1 (Python 3.6.9)
+| http-methods: 
+|_  Supported Methods: GET OPTIONS HEAD
+|_http-server-header: Werkzeug/1.0.1 Python/3.6.9
+| http-title: VulnNet Entertainment -  Login  | Discover
+|_Requested resource was http://vulnnet.com:8080/login
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Apr 29 17:30:23 2021 -- 1 IP address (1 host up) scanned in 41.87 seconds
