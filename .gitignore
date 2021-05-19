@@ -1,5 +1,4 @@
 *.ovpn
-<<<<<<< HEAD
 *rockyou*
 *.pyc
 *linpeas*
@@ -14,8 +13,3 @@ rootfs
 *dropbear*
 openssh*
 ImmunityDebugger*.exe
-=======
-*.sqlite3
-*rockyou*
-*.pyc
->>>>>>> d9f51a8c9bb36861056964bac3f59ebc2b7ddcc5

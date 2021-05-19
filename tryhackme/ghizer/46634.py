@@ -59,10 +59,7 @@ def post(url, data={}, files=None, headers=None):
 
 def getYIICSRFToken(url):
 	res = get(url)
-<<<<<<< HEAD
 	print url
-=======
->>>>>>> d9f51a8c9bb36861056964bac3f59ebc2b7ddcc5
 	token = re.findall(r'value="(.*)" name="YII_CSRF_TOKEN"', res)
 	return token[0] 
 
@@ -252,8 +249,4 @@ def main():
         print "[-] Bad credentials :("
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> d9f51a8c9bb36861056964bac3f59ebc2b7ddcc5
