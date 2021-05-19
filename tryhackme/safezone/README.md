@@ -294,6 +294,7 @@ Unfortunately, the access log was already polluted by our gobuster and nikto sca
 
 
 
+<<<<<<< HEAD
 After some unsucessfull attempts with `curl` and `User-Agents`, I ended up using the `path` of the request to inject our command runner. Using netcat was the easiest, easier to pass symbols.
 
 ```
@@ -539,6 +540,12 @@ And we are root
 THM{63a9f0ea7bb98050796b649e85481845}
 ```
 
+=======
+
+
+## Priv esc
+
+>>>>>>> d9f51a8c9bb36861056964bac3f59ebc2b7ddcc5
 
 
 ## Follow up
