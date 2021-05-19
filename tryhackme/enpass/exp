@@ -1,0 +1,1 @@
+!!python/object/apply:posix.system ["ls > t"]

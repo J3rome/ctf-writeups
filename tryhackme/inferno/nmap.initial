@@ -1,0 +1,62 @@
+# Nmap 7.80 scan initiated Mon May  3 17:24:46 2021 as: nmap -sC -sV -oN nmap.initial -v 10.10.220.36
+Nmap scan report for 10.10.220.36
+Host is up (0.093s latency).
+Not shown: 958 closed ports
+PORT      STATE SERVICE       VERSION
+21/tcp    open  tcpwrapped
+22/tcp    open  ssh           OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 d7:ec:1a:7f:62:74:da:29:64:b3:ce:1e:e2:68:04:f7 (RSA)
+|   256 de:4f:ee:fa:86:2e:fb:bd:4c:dc:f9:67:73:02:84:34 (ECDSA)
+|_  256 e2:6d:8d:e1:a8:d0:bd:97:cb:9a:bc:03:c3:f8:d8:85 (ED25519)
+23/tcp    open  tcpwrapped
+25/tcp    open  tcpwrapped
+|_smtp-commands: Couldn't establish connection on port 25
+80/tcp    open  http          Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: POST OPTIONS HEAD GET
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Dante's Inferno
+88/tcp    open  tcpwrapped
+106/tcp   open  pop3pw?
+110/tcp   open  tcpwrapped
+389/tcp   open  tcpwrapped
+443/tcp   open  tcpwrapped
+464/tcp   open  tcpwrapped
+636/tcp   open  tcpwrapped
+777/tcp   open  tcpwrapped
+783/tcp   open  tcpwrapped
+808/tcp   open  ccproxy-http?
+873/tcp   open  tcpwrapped
+1001/tcp  open  webpush?
+1236/tcp  open  tcpwrapped
+1300/tcp  open  tcpwrapped
+2000/tcp  open  tcpwrapped
+2003/tcp  open  tcpwrapped
+2121/tcp  open  tcpwrapped
+2601/tcp  open  tcpwrapped
+2602/tcp  open  tcpwrapped
+2604/tcp  open  tcpwrapped
+2605/tcp  open  tcpwrapped
+2607/tcp  open  tcpwrapped
+2608/tcp  open  tcpwrapped
+4224/tcp  open  tcpwrapped
+5051/tcp  open  tcpwrapped
+5432/tcp  open  tcpwrapped
+5555/tcp  open  tcpwrapped
+5666/tcp  open  tcpwrapped
+6346/tcp  open  tcpwrapped
+6566/tcp  open  tcpwrapped
+6667/tcp  open  tcpwrapped
+|_irc-info: Unable to open connection
+8021/tcp  open  tcpwrapped
+8081/tcp  open  tcpwrapped
+8088/tcp  open  radan-http?
+9418/tcp  open  tcpwrapped
+10000/tcp open  tcpwrapped
+10082/tcp open  tcpwrapped
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon May  3 17:25:50 2021 -- 1 IP address (1 host up) scanned in 64.11 seconds

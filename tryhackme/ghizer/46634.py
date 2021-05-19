@@ -59,6 +59,7 @@ def post(url, data={}, files=None, headers=None):
 
 def getYIICSRFToken(url):
 	res = get(url)
+	print url
 	token = re.findall(r'value="(.*)" name="YII_CSRF_TOKEN"', res)
 	return token[0] 
 

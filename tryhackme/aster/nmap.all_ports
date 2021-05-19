@@ -1,0 +1,9 @@
+# Nmap 7.80 scan initiated Wed May  5 14:34:07 2021 as: nmap -p5038 -v -o nmap.all_ports 10.10.134.236
+Nmap scan report for 10.10.134.236
+Host is up (0.096s latency).
+
+PORT     STATE SERVICE
+5038/tcp open  unknown
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Wed May  5 14:34:08 2021 -- 1 IP address (1 host up) scanned in 0.28 seconds

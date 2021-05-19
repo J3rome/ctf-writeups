@@ -1,4 +1,15 @@
 *.ovpn
-*.sqlite3
 *rockyou*
 *.pyc
+*linpeas*
+hydra.restore*
+node_modules
+*.deb
+*.gz
+*.bz2
+*.tar
+*.zip
+rootfs
+*dropbear*
+openssh*
+ImmunityDebugger*.exe

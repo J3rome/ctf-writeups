@@ -1,0 +1,76 @@
+# Nmap 7.80 scan initiated Tue Dec 22 22:34:05 2020 as: nmap -sC -sV -oN nmap.initial2 -v 10.10.225.50
+Nmap scan report for 10.10.225.50
+Host is up (0.092s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE   VERSION
+22/tcp  open  ssh       OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 89:a8:db:e1:3d:ab:0e:ea:da:d8:8d:a7:bc:56:fc:da (RSA)
+|   256 7d:b2:aa:19:18:31:6c:62:18:7b:3b:96:11:02:54:9d (ECDSA)
+|_  256 26:32:b9:96:69:a8:cb:14:b4:8c:e8:f0:d5:74:bd:6e (ED25519)
+80/tcp  open  http
+| fingerprint-strings: 
+|   GetRequest, HTTPOptions: 
+|     HTTP/1.1 302 
+|     Cache-Control: private
+|     Expires: Thu, 01 Jan 1970 00:00:00 GMT
+|     Location: https://localhost/
+|     Content-Length: 0
+|     Date: Wed, 23 Dec 2020 03:34:19 GMT
+|     Connection: close
+|   RTSPRequest, X11Probe: 
+|     HTTP/1.1 400 
+|     Content-Type: text/html;charset=utf-8
+|     Content-Language: en
+|     Content-Length: 435
+|     Date: Wed, 23 Dec 2020 03:34:20 GMT
+|     Connection: close
+|     <!doctype html><html lang="en"><head><title>HTTP Status 400 
+|     Request</title><style type="text/css">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 400 
+|_    Request</h1></body></html>
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Did not follow redirect to https://10.10.225.50/
+443/tcp open  ssl/https
+|_http-title: Site doesn't have a title (text/plain;charset=UTF-8).
+|_ssl-date: 2020-12-23T03:35:01+00:00; -1s from scanner time.
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.80%I=7%D=12/22%Time=5FE2BABB%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,BA,"HTTP/1\.1\x20302\x20\r\nCache-Control:\x20private\r\nExpire
+SF:s:\x20Thu,\x2001\x20Jan\x201970\x2000:00:00\x20GMT\r\nLocation:\x20http
+SF:s://localhost/\r\nContent-Length:\x200\r\nDate:\x20Wed,\x2023\x20Dec\x2
+SF:02020\x2003:34:19\x20GMT\r\nConnection:\x20close\r\n\r\n")%r(HTTPOption
+SF:s,BA,"HTTP/1\.1\x20302\x20\r\nCache-Control:\x20private\r\nExpires:\x20
+SF:Thu,\x2001\x20Jan\x201970\x2000:00:00\x20GMT\r\nLocation:\x20https://lo
+SF:calhost/\r\nContent-Length:\x200\r\nDate:\x20Wed,\x2023\x20Dec\x202020\
+SF:x2003:34:19\x20GMT\r\nConnection:\x20close\r\n\r\n")%r(RTSPRequest,24E,
+SF:"HTTP/1\.1\x20400\x20\r\nContent-Type:\x20text/html;charset=utf-8\r\nCo
+SF:ntent-Language:\x20en\r\nContent-Length:\x20435\r\nDate:\x20Wed,\x2023\
+SF:x20Dec\x202020\x2003:34:20\x20GMT\r\nConnection:\x20close\r\n\r\n<!doct
+SF:ype\x20html><html\x20lang=\"en\"><head><title>HTTP\x20Status\x20400\x20
+SF:\xe2\x80\x93\x20Bad\x20Request</title><style\x20type=\"text/css\">body\
+SF:x20{font-family:Tahoma,Arial,sans-serif;}\x20h1,\x20h2,\x20h3,\x20b\x20
+SF:{color:white;background-color:#525D76;}\x20h1\x20{font-size:22px;}\x20h
+SF:2\x20{font-size:16px;}\x20h3\x20{font-size:14px;}\x20p\x20{font-size:12
+SF:px;}\x20a\x20{color:black;}\x20\.line\x20{height:1px;background-color:#
+SF:525D76;border:none;}</style></head><body><h1>HTTP\x20Status\x20400\x20\
+SF:xe2\x80\x93\x20Bad\x20Request</h1></body></html>")%r(X11Probe,24E,"HTTP
+SF:/1\.1\x20400\x20\r\nContent-Type:\x20text/html;charset=utf-8\r\nContent
+SF:-Language:\x20en\r\nContent-Length:\x20435\r\nDate:\x20Wed,\x2023\x20De
+SF:c\x202020\x2003:34:20\x20GMT\r\nConnection:\x20close\r\n\r\n<!doctype\x
+SF:20html><html\x20lang=\"en\"><head><title>HTTP\x20Status\x20400\x20\xe2\
+SF:x80\x93\x20Bad\x20Request</title><style\x20type=\"text/css\">body\x20{f
+SF:ont-family:Tahoma,Arial,sans-serif;}\x20h1,\x20h2,\x20h3,\x20b\x20{colo
+SF:r:white;background-color:#525D76;}\x20h1\x20{font-size:22px;}\x20h2\x20
+SF:{font-size:16px;}\x20h3\x20{font-size:14px;}\x20p\x20{font-size:12px;}\
+SF:x20a\x20{color:black;}\x20\.line\x20{height:1px;background-color:#525D7
+SF:6;border:none;}</style></head><body><h1>HTTP\x20Status\x20400\x20\xe2\x
+SF:80\x93\x20Bad\x20Request</h1></body></html>");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: -1s
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Dec 22 22:36:01 2020 -- 1 IP address (1 host up) scanned in 115.53 seconds
