@@ -1,0 +1,12 @@
+# Nmap 7.80 scan initiated Sun Jul 11 21:52:20 2021 as: nmap -sC -sV -oN nmap.initial -v 10.10.187.192
+Nmap scan report for 10.10.187.192
+Host is up (0.44s latency).
+Not shown: 997 filtered ports
+PORT     STATE  SERVICE    VERSION
+22/tcp   open   ssh        OpenSSH 8.0 (protocol 2.0)
+80/tcp   open   http       nginx
+9090/tcp closed zeus-admin
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Jul 11 21:54:34 2021 -- 1 IP address (1 host up) scanned in 134.15 seconds
