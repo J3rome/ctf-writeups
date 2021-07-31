@@ -1,6 +1,6 @@
-# Tryhackme.com Room : VulNet Node
+# Tryhackme.com Room : Battery
 
-`https://tryhackme.com/room/vulnnetnode`
+`https://tryhackme.com/room/battery`
 
 ## Instance
 

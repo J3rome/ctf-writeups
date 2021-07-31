@@ -1,0 +1,13 @@
+# Nmap 7.80 scan initiated Thu Jun 17 14:01:11 2021 as: nmap --min-rate 4500 --max-rtt-timeout 1500ms -p- -v -oN nmap.all_ports 10.10.93.236
+Increasing send delay for 10.10.93.236 from 0 to 5 due to 11 out of 13 dropped probes since last increase.
+Increasing send delay for 10.10.93.236 from 5 to 10 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.10.93.236 from 10 to 20 due to 11 out of 11 dropped probes since last increase.
+Nmap scan report for mustacchio.thm (10.10.93.236)
+Host is up (0.11s latency).
+Not shown: 65533 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Thu Jun 17 14:01:58 2021 -- 1 IP address (1 host up) scanned in 47.30 seconds

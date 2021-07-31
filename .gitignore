@@ -13,3 +13,7 @@ rootfs
 *dropbear*
 openssh*
 ImmunityDebugger*.exe
+www/
+pspy
+pspy64
+tryhackme/koth

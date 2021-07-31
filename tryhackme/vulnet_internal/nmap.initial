@@ -1,0 +1,72 @@
+# Nmap 7.80 scan initiated Mon May 24 17:53:40 2021 as: nmap -sC -sV -oN nmap.initial -v 10.10.128.223
+Nmap scan report for 10.10.128.223
+Host is up (0.10s latency).
+Not shown: 992 closed ports
+PORT      STATE    SERVICE     VERSION
+22/tcp    open     ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 5e:27:8f:48:ae:2f:f8:89:bb:89:13:e3:9a:fd:63:40 (RSA)
+|   256 f4:fe:0b:e2:5c:88:b5:63:13:85:50:dd:d5:86:ab:bd (ECDSA)
+|_  256 82:ea:48:85:f0:2a:23:7e:0e:a9:d9:14:0a:60:2f:ad (ED25519)
+111/tcp   open     rpcbind     2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      47910/udp6  mountd
+|   100005  1,2,3      48131/tcp6  mountd
+|   100005  1,2,3      54926/udp   mountd
+|   100005  1,2,3      59499/tcp   mountd
+|   100021  1,3,4      34887/tcp   nlockmgr
+|   100021  1,3,4      36002/udp   nlockmgr
+|   100021  1,3,4      37411/tcp6  nlockmgr
+|   100021  1,3,4      39012/udp6  nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp   open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open     netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp   open     rsync       (protocol version 31)
+2049/tcp  open     nfs_acl     3 (RPC #100227)
+9090/tcp  filtered zeus-admin
+20000/tcp filtered dnp
+Service Info: Host: VULNNET-INTERNAL; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -39m59s, deviation: 1h09m16s, median: 0s
+| nbstat: NetBIOS name: VULNNET-INTERNA, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   VULNNET-INTERNA<00>  Flags: <unique><active>
+|   VULNNET-INTERNA<03>  Flags: <unique><active>
+|   VULNNET-INTERNA<20>  Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: vulnnet-internal
+|   NetBIOS computer name: VULNNET-INTERNAL\x00
+|   Domain name: \x00
+|   FQDN: vulnnet-internal
+|_  System time: 2021-05-24T23:54:10+02:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-05-24T21:54:10
+|_  start_date: N/A
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon May 24 17:54:13 2021 -- 1 IP address (1 host up) scanned in 33.48 seconds

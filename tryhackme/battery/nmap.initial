@@ -1,6 +1,6 @@
-# Nmap 7.80 scan initiated Sat Apr  3 12:51:48 2021 as: nmap -sC -sV -oN nmap.initial -v 10.10.100.113
-Nmap scan report for 10.10.100.113
-Host is up (0.22s latency).
+# Nmap 7.80 scan initiated Thu May 20 17:05:28 2021 as: nmap -sC -sV -oN nmap.initial -v 10.10.119.78
+Nmap scan report for 10.10.119.78
+Host is up (0.092s latency).
 Not shown: 998 closed ports
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2 (Ubuntu Linux; protocol 2.0)
@@ -11,11 +11,11 @@ PORT   STATE SERVICE VERSION
 |_  256 62:e4:a3:f6:c6:19:ad:30:0a:30:a1:eb:4a:d3:12:d3 (ED25519)
 80/tcp open  http    Apache httpd 2.4.7 ((Ubuntu))
 | http-methods: 
-|_  Supported Methods: OPTIONS GET HEAD POST
+|_  Supported Methods: GET HEAD POST OPTIONS
 |_http-server-header: Apache/2.4.7 (Ubuntu)
 |_http-title: Site doesn't have a title (text/html).
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Sat Apr  3 12:52:24 2021 -- 1 IP address (1 host up) scanned in 36.32 seconds
+# Nmap done at Thu May 20 17:05:46 2021 -- 1 IP address (1 host up) scanned in 18.34 seconds
